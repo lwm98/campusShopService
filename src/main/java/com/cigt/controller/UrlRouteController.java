@@ -10,4 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class UrlRouteController {
     @GetMapping("/login")
     public String login(){ return "login"; }
+
+    @GetMapping("/index")
+    public String index(){
+        return "index";
+    }
 }
