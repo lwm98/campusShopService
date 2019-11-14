@@ -11,7 +11,7 @@ import java.util.List;
  * 主页事务逻辑
  */
 @Service
-public class IndexService {
+public class HomeService {
     @Autowired
     private GoodsMapper goodsMapper;
     /**

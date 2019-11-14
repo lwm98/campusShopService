@@ -16,4 +16,5 @@ public interface GoodsMapper {
      */
     @Select("select * from goods")
     List<GoodsDto> getAllGoods();
+
 }

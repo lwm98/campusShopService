@@ -3,8 +3,10 @@ package com.cigt.controller;
 import com.cigt.dto.UserDto;
 import com.cigt.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,7 +16,9 @@ import java.util.Map;
 /**
  * 用于一些用户操作的控制器
  */
-@RestController("/api")
+@Controller
+@ResponseBody
+@RequestMapping("/api")
 public class UserController {
     @Autowired
     private UserService userService;

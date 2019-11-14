@@ -1,11 +1,10 @@
 package com.cigt.controller;
 
-import com.cigt.service.IndexService;
+import com.cigt.service.HomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,9 +13,9 @@ import java.util.Map;
  * 首页控制器
  */
 @RestController("/api")
-public class IndexController {
+public class HomeController {
     @Autowired
-    private IndexService indexService;
+    private HomeService homeService;
     /**
      * 获取商品信息
      */
@@ -24,7 +23,7 @@ public class IndexController {
     public Map getAllGoodsInfo(){
         Map map = new HashMap();
         try {
-            List ls = indexService.getAllGoods();
+            List ls = homeService.getAllGoods();
             map.put("getAllGoods",ls);
             return map;
         }catch (Exception e){
