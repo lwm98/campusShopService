@@ -79,4 +79,11 @@ public class UserController {
         map.put("registerAsynchronous","false");
         return map;
     }
+    /**
+     * 修改用户信息
+     */
+    @PostMapping("/updateUserInfo")
+    public Map updateUserInfo(UserDto userDto){
+        return null;
+    }
 }

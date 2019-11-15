@@ -17,4 +17,5 @@ public class UserDto {
     private String autograph;
     private String created_at; //创建时间
     private String updated_at; //修改时间
+    private String real_name;
 }
