@@ -1,7 +1,11 @@
 package com.cigt.controller;
 
+import com.cigt.dto.GoodsDto;
 import com.cigt.dto.UserDto;
 import com.cigt.service.UserService;
+import com.sun.org.apache.regexp.internal.RE;
+import org.apache.ibatis.annotations.Param;
+import org.omg.CORBA.TRANSACTION_MODE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -84,6 +88,39 @@ public class UserController {
      */
     @PostMapping("/updateUserInfo")
     public Map updateUserInfo(UserDto userDto){
+        Map map =new HashMap();
+        try{
+            userService.updateUser(userDto);
+            map.put("updateUser","true");
+            return map;
+        }catch (Exception e){
+            System.out.println(e);
+            map.put("updateUser","false");
+            return map;
+        }
+    }
+    /**
+     * 修改密码
+     */
+    @PostMapping("/updateUserPasswordInfo")
+    public Map updateUserPasswordInfo(String password,int id ){
+        Map map = new HashMap();
+        try {
+            userService.updateUserPassword(password,id);
+            map.put("updateUserPassword","true");
+            return map;
+        }catch (Exception e){
+            System.out.println(e);
+            map.put("updateUserPassword","false");
+            return map;
+        }
+    }
+    /**
+     * 发布商品
+     */
+    @PostMapping("/releaseGoodsInfo")
+    public Map releaseGoodsInfo(GoodsDto goodsDto){
         return null;
     }
+
 }
