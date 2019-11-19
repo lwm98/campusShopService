@@ -2,6 +2,7 @@ package com.cigt.mapper;
 
 import com.cigt.dto.CommentDto;
 import com.cigt.dto.CommentExt;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -33,4 +34,11 @@ public interface CommentMapper {
             "a.type =1")
     List<CommentExt> getCommentSons(@Param("pid") int pid,
                                     @Param("goods_id") int goods_id);
+    /**
+     * 插入评论
+     */
+    @Insert("insert into t_comment (goods_id,user_id,content,create_time," +
+            "type,reply_user_id,pid) VALUES (#{goods_id},#{user_id},#{content}," +
+            "#{create_time},#{type},#{reply_user_id},#{pid})")
+    int insertComment(CommentDto commentDto);
 }

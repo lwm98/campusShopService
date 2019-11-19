@@ -1,6 +1,8 @@
 package com.cigt.controller;
 
 import com.cigt.service.HomeService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +19,7 @@ import java.util.Map;
 @Controller
 @ResponseBody
 @RequestMapping("/api")
+@Api(tags = "首页接口")
 public class HomeController {
     @Autowired
     private HomeService homeService;
@@ -24,6 +27,7 @@ public class HomeController {
      * 获取动态加载商品信息
      */
     @PostMapping("/getLoadmMoreGoodsInfo")
+    @ApiOperation("商品加载更多")
     public Map getLoadmMoreGoodsInfo(int goodsNum){
         Map map = new HashMap();
         try {
@@ -40,6 +44,7 @@ public class HomeController {
      * 分类查询
      */
     @PostMapping("/getGoodsCategoryInfo/{category}")
+    @ApiOperation("分类查询")
     public Map getGoodsByCategoryInfo(@PathVariable("category") String category){
         Map map =new HashMap();
         try {
@@ -56,6 +61,7 @@ public class HomeController {
      * 获取分类表
      */
     @PostMapping("/getCategoryInfo")
+    @ApiOperation("获取商品分类")
     public List getCategoryInfo(){
         List ls = null;
         try{
@@ -71,6 +77,7 @@ public class HomeController {
      * 查询商品接口
      */
     @PostMapping("/findGoodsInfo")
+    @ApiOperation("查询商品")
     public Map findGoodsInfo(String goodsName){
         Map map = new HashMap();
         try {

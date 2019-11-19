@@ -3,10 +3,13 @@ package com.cigt.service;
 import com.cigt.base.R;
 import com.cigt.dto.CommentDto;
 import com.cigt.dto.CommentExt;
+import com.cigt.dto.UserDto;
 import com.cigt.mapper.CommentMapper;
+import com.cigt.my_util.GetTime_util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -16,6 +19,8 @@ import java.util.List;
 public class CommentService {
     @Autowired
     private CommentMapper commentMapper;
+    @Autowired
+    private GetTime_util getTime_util;
     /**
      * 处理某个商品的评论
      */
@@ -34,6 +39,30 @@ public class CommentService {
         }catch (Exception e){
             return R.error("操作数据库失败");
         }
-
+    }
+    /**
+     * 用户评论
+     */
+    public R sendComment(int goods_id, String content, int reply_id,int pid, HttpServletRequest httpServletRequest){
+        CommentDto commentDto =new CommentDto();
+        //UserDto userDto = (UserDto)httpServletRequest.getSession().getAttribute("USER");
+        commentDto.setGoods_id(goods_id);
+        commentDto.setUser_id(9);
+        commentDto.setContent(content);
+        commentDto.setCreate_time(getTime_util.GetNowTime_util());
+        if(reply_id==0){
+            commentDto.setType(0);
+        }else {
+            commentDto.setType(1);
+            commentDto.setReply_user_id(reply_id);
+        }
+        commentDto.setPid(pid);
+        try{
+            commentMapper.insertComment(commentDto);
+            return R.ok("评论成功");
+        }catch (Exception e){
+            System.out.println(e);
+            return R.error("评论失败");
+        }
     }
 }

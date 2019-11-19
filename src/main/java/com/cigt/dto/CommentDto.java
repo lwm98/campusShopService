@@ -14,6 +14,7 @@ public class CommentDto {
     private String create_time;
     private int type;
     private int reply_user_id;
+    private int pid;
     //子评论
     private List<CommentExt> commentExts;
 

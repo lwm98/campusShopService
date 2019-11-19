@@ -3,9 +3,8 @@ package com.cigt.controller;
 import com.cigt.dto.GoodsDto;
 import com.cigt.dto.UserDto;
 import com.cigt.service.UserService;
-import com.sun.org.apache.regexp.internal.RE;
-import org.apache.ibatis.annotations.Param;
-import org.omg.CORBA.TRANSACTION_MODE;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +22,7 @@ import java.util.Map;
 @Controller
 @ResponseBody
 @RequestMapping("/api")
+@Api(tags = "用户操作接口（多为操作个人信息）")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -30,6 +30,7 @@ public class UserController {
      * 用户登录
      */
     @PostMapping("/loginInfo")
+    @ApiOperation("用户登录")
     public Map loginInfo(UserDto userDto,HttpServletRequest request){
         Map map =new HashMap();
         userDto = userService.userLogin(userDto);
@@ -48,6 +49,7 @@ public class UserController {
      * 用户注册
      */
     @PostMapping("/registerInfo")
+    @ApiOperation("用户注册")
     public Map registerInfo(UserDto userDto, HttpServletRequest request){
         Map map =new HashMap();
         try {
@@ -68,6 +70,7 @@ public class UserController {
      * 注册时的异步判断
      */
     @PostMapping("/registerAsynchronousInfo")
+    @ApiOperation("异步判断")
     public Map registerAsynchronousInfo(String user_name){
         Map map =new HashMap();
         try {
@@ -87,6 +90,7 @@ public class UserController {
      * 修改用户信息
      */
     @PostMapping("/updateUserInfo")
+    @ApiOperation("修改用户信息")
     public Map updateUserInfo(UserDto userDto){
         Map map =new HashMap();
         try{
@@ -103,6 +107,7 @@ public class UserController {
      * 修改密码
      */
     @PostMapping("/updateUserPasswordInfo")
+    @ApiOperation("修改密码")
     public Map updateUserPasswordInfo(String password,int id ){
         Map map = new HashMap();
         try {
@@ -119,6 +124,7 @@ public class UserController {
      * 发布商品
      */
     @PostMapping("/releaseGoodsInfo")
+    @ApiOperation("发布商品")
     public Map releaseGoodsInfo(GoodsDto goodsDto){
         return null;
     }
