@@ -40,8 +40,6 @@ public class UserService {
         //修改时间
         userDto.setCreated_at(getTime_util.GetNowTime_util());
         userDto.setUpdated_at(getTime_util.GetNowTime_util());
-        userDto.setCreated_at(getTime_util.GetNowTime_util());
-        userDto.setUpdated_at(getTime_util.GetNowTime_util());
         userMapper.insertUser(userDto);
         return userDto;
     }
@@ -49,7 +47,7 @@ public class UserService {
      * 用户修改个人信息
      */
     public void updateUser(UserDto userDto){
-        userDto.setCreated_at(getTime_util.GetNowTime_util());
+        userDto.setUpdated_at(getTime_util.GetNowTime_util());
         userMapper.updateUser(userDto);
     }
     /**
