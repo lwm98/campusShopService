@@ -81,7 +81,7 @@ public class UserController {
         //保存到session中
         HttpSession sessoin=request.getSession();
         sessoin.setAttribute("USER",null);
-        return null;
+        return R.ok();
     }
 
     /**
