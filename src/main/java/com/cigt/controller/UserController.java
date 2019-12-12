@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,6 +24,7 @@ import java.util.Map;
 @ResponseBody
 @RequestMapping("/api")
 @Api(tags = "用户操作接口（多为操作个人信息）")
+@CrossOrigin(origins = "*",maxAge = 3600)
 public class UserController {
     @Autowired
     private UserService userService;
@@ -32,6 +34,8 @@ public class UserController {
     @PostMapping("/loginInfo")
     @ApiOperation("用户登录")
     public Map loginInfo(UserDto userDto,HttpServletRequest request){
+        System.out.println(userDto.getName());
+        System.out.println(userDto.getPassword());
         Map map =new HashMap();
         userDto = userService.userLogin(userDto);
         if(userDto!=null){
