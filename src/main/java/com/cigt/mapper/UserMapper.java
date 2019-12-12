@@ -23,7 +23,7 @@ public interface UserMapper {
     /**
      * 登录
      */
-    @Select("select * from t_uers where name = #{name},password = #{password}")
+    @Select("select * from t_user where name = #{name} and password = #{password}")
     UserDto findUser(UserDto userDto);
     /**
      * 修改个人信息

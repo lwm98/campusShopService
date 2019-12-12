@@ -9,6 +9,7 @@ import lombok.Data;
 public class GoodsDto {
     private int id;
     private String name;
+    private String depict;
     private double price;
     private String images;
     private String time;
