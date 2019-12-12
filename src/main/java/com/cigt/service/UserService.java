@@ -1,10 +1,13 @@
 package com.cigt.service;
 
+import com.cigt.base.R;
 import com.cigt.dto.UserDto;
 import com.cigt.mapper.UserMapper;
 import com.cigt.my_util.GetTime_util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 用来处理用户操作的事务

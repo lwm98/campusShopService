@@ -1,5 +1,6 @@
 package com.cigt.controller;
 
+import com.cigt.base.R;
 import com.cigt.dto.GoodsDto;
 import com.cigt.dto.UserDto;
 import com.cigt.service.UserService;
@@ -61,6 +62,7 @@ public class UserController {
             //保存到session中
             HttpSession sessoin=request.getSession();
             sessoin.setAttribute("USER",userDto);
+            map.put("User",userDto);
             map.put("register","true");
             return map;
         }catch (Exception e){
@@ -68,6 +70,18 @@ public class UserController {
         }
         map.put("register","false");
         return map;
+    }
+
+    /**
+     * 用户退出
+     */
+    @PostMapping("/loginOut")
+    @ApiOperation("用户退出")
+    public R UserLoginOut(HttpServletRequest request){
+        //保存到session中
+        HttpSession sessoin=request.getSession();
+        sessoin.setAttribute("USER",null);
+        return null;
     }
 
     /**
