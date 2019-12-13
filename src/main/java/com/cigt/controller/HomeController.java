@@ -1,5 +1,6 @@
 package com.cigt.controller;
 
+import com.cigt.base.R;
 import com.cigt.service.HomeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,37 +26,30 @@ public class HomeController {
     /**
      * 获取动态加载商品信息
      */
-    @PostMapping("/getLoadmMoreGoodsInfo")
+    @PostMapping("/getLoadmMoreGoodsInfo/{category}")
     @ApiOperation("商品加载更多")
-    public Map getLoadmMoreGoodsInfo(int goodsNum){
-        Map map = new HashMap();
-        try {
-            List ls = homeService.getLoadmMoreGoods(goodsNum);
-            map.put("getAllGoods",ls);
-            return map;
-        }catch (Exception e){
-            System.out.println(e);
-        }
-        map.put("getAllGoods","false");
-        return map;
+    public R getLoadmMoreGoodsInfo(@PathVariable("category") String category,
+                                   @RequestParam(defaultValue = "1",value = "pageNum") int pageNum){
+
+        return homeService.getLoadmMoreGoods(category, pageNum);
     }
-    /**
-     * 分类查询
-     */
-    @PostMapping("/getGoodsCategoryInfo/{category}")
-    @ApiOperation("分类查询")
-    public Map getGoodsByCategoryInfo(@PathVariable("category") String category){
-        Map map =new HashMap();
-        try {
-            List ls = homeService.getGoodsByCategory(category);
-            map.put("getCategory",ls);
-            return map;
-        }catch (Exception e){
-            System.out.println(e);
-            map.put("getCategory","false");
-            return map;
-        }
-    }
+//    /**
+//     * 分类查询
+//     */
+//    @PostMapping("/getGoodsCategoryInfo/{category}")
+//    @ApiOperation("分类查询")
+//    public Map getGoodsByCategoryInfo(@PathVariable("category") String category){
+//        Map map =new HashMap();
+//        try {
+//            List ls = homeService.getGoodsByCategory(category);
+//            map.put("getCategory",ls);
+//            return map;
+//        }catch (Exception e){
+//            System.out.println(e);
+//            map.put("getCategory","false");
+//            return map;
+//        }
+//    }
     /**
      * 获取分类表
      */

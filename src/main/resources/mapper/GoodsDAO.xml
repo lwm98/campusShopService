@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cigt.dao.GoodsDAO">
+
+    <!-- 用来记录分页查询时的所有数据量，避免出现分页查询时需要查询两次 -->
+    <resultMap type="java.lang.Integer" id="count">
+        <result column="total"/>
+    </resultMap>
+
+    <resultMap id="data" type="com.cigt.dto.GoodsDto">
+
+    </resultMap>
+
+    <select id="getLoadmMoreGoods" resultMap="data,count">
+        SELECT sql_calc_found_rows  * FROM t_goods where category = #{category} LIMIT #{pageNum},8 ;
+        SELECT FOUND_ROWS() as total ;
+    </select>
+
+
+</mapper>

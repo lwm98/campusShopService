@@ -1,11 +1,16 @@
 package com.cigt.service;
 
+import com.cigt.base.R;
+import com.cigt.dao.GoodsDAO;
 import com.cigt.dto.GoodsDto;
 import com.cigt.mapper.GoodsMapper;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 主页事务逻辑
@@ -13,14 +18,27 @@ import java.util.List;
 @Service
 public class HomeService {
     @Autowired
+    private GoodsDAO goodsDAO;
+    @Autowired
     private GoodsMapper goodsMapper;
+
+
     /**
-     * 获取所有商品信息
+     * 分页获取商品信息
+     * @param category
+     * @param pageNum
+     * @return
      */
-    public List getLoadmMoreGoods(int currIndex){
-        currIndex = (currIndex-1)*16;
-        List<GoodsDto> ls = goodsMapper.getLoadmMoreGoods(currIndex,16);
-        return ls;
+    public R getLoadmMoreGoods(String category, int pageNum){
+        //计算从第几条开始
+        pageNum = (pageNum-1)*8;
+
+        List<List<?>> ls = goodsDAO.getLoadmMoreGoods(category, pageNum);
+
+        Map map = new HashMap();
+        map.put("goods",ls.get(0));
+        map.put("goodsNum",ls.get(1).get(0));
+        return R.ok(map);
     }
     /**
      * 依靠类别搜索商品

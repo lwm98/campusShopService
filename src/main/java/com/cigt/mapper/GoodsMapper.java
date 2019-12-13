@@ -13,21 +13,16 @@ import java.util.List;
  */
 @Mapper
 public interface GoodsMapper {
-    /**
-     * 获取所有商品信息
-     */
-    @Select("select * from t_goods limit #{currIndex} , #{pageSize}")
-    List<GoodsDto> getLoadmMoreGoods(@Param("currIndex") int currIndex,
-                               @Param("pageSize") int pageSize);
+
 
     /**
      * 依靠类别模糊查询商品
      */
-    @Select("select * from t_goods where category like CONCAT('%',#{category},'%')")
+    @Select("select * from t_goods where category like CONCAT('%',#{category},'%') LIMIT 0,8 ")
     List<GoodsDto> findGoodsByCategory(@Param("category") String category);
 
     /**
-     * 查询种类
+     * 获取种类
      */
     @Select("select * from t_category")
     List<CategoryDto> findAllCategory();

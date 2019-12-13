@@ -1,0 +1,3 @@
+mybatis:
+  #对应mapper映射文件路径
+  mapper-locations: classpath:mapper/*.xml
