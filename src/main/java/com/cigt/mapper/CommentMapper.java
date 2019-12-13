@@ -17,14 +17,16 @@ public interface CommentMapper {
     /**
      * 传入商品id，获取这个商品的一级评论
      */
-    @Select("select * from t_comment where " +
-            "pid =0 AND type=0 AND goods_id =#{goods_id} ")
+    @Select(" SELECT t_user.name,t_user.real_name,t_user.image,t_user.sex,t_comment.* " +
+            "FROM t_comment " +
+            "LEFT JOIN t_user ON t_comment.user_id=t_user.id  " +
+            "where pid =0 AND type=0 AND goods_id =#{goods_id} ")
     List<CommentDto> findCommentById(@Param("goods_id") int goods_id);
 
     /**
      * 获取子评论
      */
-    @Select("select a.user_id,a.content,a.create_time,b.image,b.real_name ," +
+    @Select("select a.user_id,b.name,b.real_name,b.sex,b.image,a.content,a.create_time,b.image,b.real_name ," +
             "c.id as reply_id,c.image as reply_image,c.real_name as reply_real_name " +
             "from t_comment a,t_user b ,t_user c where " +
             "a.user_id = b.id AND " +

@@ -8,6 +8,10 @@ import java.util.List;
 @Data
 public class CommentDto {
     private int id;
+    private String  name;
+    private String real_name;
+    private String sex;
+    private String image;
     private int goods_id;
     private int user_id;
     private String content;
