@@ -38,4 +38,9 @@ public interface GoodsMapper {
     @Select("select * from t_goods where name like CONCAT('%',#{name},'%')")
     List<GoodsDto> findGoodsByName(@Param("name") String name);
 
+    /**
+     * 模糊查询商品
+     */
+    @Select("select * from t_goods where id = #{id}")
+    List<GoodsDto> findGoodsById(@Param("id") int id);
 }
