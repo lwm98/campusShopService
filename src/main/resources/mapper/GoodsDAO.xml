@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cigt.dao.GoodsDAO">
+
+    <!-- 用来记录分页查询时的所有数据量，避免出现分页查询时需要查询两次 -->
+    <resultMap type="java.lang.Integer" id="count">
+        <result column="total"/>
+    </resultMap>
+
+    <resultMap id="data" type="com.cigt.dto.GoodsDto">
+
+    </resultMap>
+
+    <select id="getLoadmMoreGoods" resultMap="data,count">
+        SELECT sql_calc_found_rows  * FROM t_goods where status = 0 and category = #{category} LIMIT #{pageNum},8 ;
+        SELECT FOUND_ROWS() as total ;
+    </select>
+
+    <!--修改轮播图-->
+    <update id="updateGoodsBannerImages" >
+        update t_goods
+        <set>
+            <if test="goods.banner_image1 != null ">
+                banner_image1 = #{goods.banner_image1},
+            </if>
+            <if test="goods.banner_image2 != null ">
+                banner_image2 = #{goods.banner_image2},
+            </if>
+            <if test="goods.banner_image3 != null ">
+                banner_image3 = #{goods.banner_image3}
+            </if>
+        </set>
+        where id = #{goods.id}
+    </update>
+
+
+</mapper>

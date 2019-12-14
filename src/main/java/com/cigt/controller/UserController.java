@@ -3,15 +3,15 @@ package com.cigt.controller;
 import com.cigt.base.R;
 import com.cigt.dto.GoodsDto;
 import com.cigt.dto.UserDto;
+import com.cigt.service.FileUpService;
 import com.cigt.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -26,17 +26,18 @@ import java.util.Map;
 @RequestMapping("/api")
 @Api(tags = "用户操作接口（多为操作个人信息）")
 @CrossOrigin(origins = "*",maxAge = 3600)
+@Transactional
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private FileUpService fileUpService;
     /**
      * 用户登录
      */
     @PostMapping("/loginInfo")
     @ApiOperation("用户登录")
     public Map loginInfo(UserDto userDto,HttpServletRequest request){
-        System.out.println(userDto.getName());
-        System.out.println(userDto.getPassword());
         Map map =new HashMap();
         userDto = userService.userLogin(userDto);
         if(userDto!=null){
@@ -44,6 +45,7 @@ public class UserController {
             //加入session
             HttpSession sessoin=request.getSession();
             sessoin.setAttribute("USER",userDto);
+            map.put("User",userDto);
             return map;
         }
         map.put("login","false");
@@ -138,13 +140,55 @@ public class UserController {
             return map;
         }
     }
+
     /**
-     * 发布商品
+     * 用户上传头像
      */
-    @PostMapping("/releaseGoodsInfo")
-    @ApiOperation("发布商品")
-    public Map releaseGoodsInfo(GoodsDto goodsDto){
-        return null;
+    @PostMapping("/upUserImage")
+    @ApiOperation("用户上传图片")
+    public R upUserImage(@RequestParam("fileName") MultipartFile userImage,
+                         int type){
+        return fileUpService.upload(userImage,type);
+    }
+
+    /**
+     * 确定修改用户头像
+     */
+    @PostMapping("/updateUserImage")
+    @ApiOperation("修改用户头像")
+    public R updateUserImage(String imagePath,HttpServletRequest request){
+        //从session中获取用户信息
+        HttpSession sessoin=request.getSession();
+        UserDto userDto = (UserDto) sessoin.getAttribute("USER");
+        return userService.updateUserImage(imagePath,userDto.getId());
+    }
+
+    @PostMapping("/publishedGoods")
+    @ApiOperation("发表商品")
+    public R publishedGoods(GoodsDto goodsDto,HttpServletRequest request){
+        //从session中获取用户信息
+        HttpSession sessoin=request.getSession();
+        UserDto userDto = (UserDto) sessoin.getAttribute("USER");
+        goodsDto.setUser_id(userDto.getId());
+        return userService.publishedGoods(goodsDto);
+    }
+
+    @PostMapping("/findUserGoods")
+    @ApiOperation("查看自己的商品")
+    public R findUserGoods(HttpServletRequest request){
+        //从session中获取用户信息
+        HttpSession sessoin=request.getSession();
+        UserDto userDto = (UserDto) sessoin.getAttribute("USER");
+        return userService.findUserGoods(userDto.getId());
+    }
+
+    @PostMapping("/delUserGoods")
+    @ApiOperation("删除自己的商品")
+    public R delUserGoods(int goodsId,HttpServletRequest request){
+        //从session中获取用户信息
+        HttpSession sessoin=request.getSession();
+        UserDto userDto = (UserDto) sessoin.getAttribute("USER");
+        return userService.delUserGoods(userDto.getId(),goodsId);
     }
 
 }

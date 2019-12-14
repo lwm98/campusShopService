@@ -8,6 +8,7 @@ import com.cigt.mapper.CommentMapper;
 import com.cigt.my_util.GetTime_util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
  * 评论事务层
  */
 @Service
+@Transactional
 public class CommentService {
     @Autowired
     private CommentMapper commentMapper;
@@ -45,9 +47,9 @@ public class CommentService {
      */
     public R sendComment(int goods_id, String content, int reply_id,int pid, HttpServletRequest httpServletRequest){
         CommentDto commentDto =new CommentDto();
-        //UserDto userDto = (UserDto)httpServletRequest.getSession().getAttribute("USER");
+        UserDto userDto = (UserDto)httpServletRequest.getSession().getAttribute("USER");
         commentDto.setGoods_id(goods_id);
-        commentDto.setUser_id(9);
+        commentDto.setUser_id(userDto.getId());
         commentDto.setContent(content);
         commentDto.setCreate_time(getTime_util.GetNowTime_util());
         if(reply_id==0){

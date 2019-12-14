@@ -26,7 +26,7 @@ public interface CommentMapper {
     /**
      * 获取子评论
      */
-    @Select("select a.user_id,b.name,b.real_name,b.sex,b.image,a.content,a.create_time,b.image,b.real_name ," +
+    @Select("select a.user_id,b.name,b.sex,a.content,a.create_time,b.image,b.real_name ," +
             "c.id as reply_id,c.image as reply_image,c.real_name as reply_real_name " +
             "from t_comment a,t_user b ,t_user c where " +
             "a.user_id = b.id AND " +

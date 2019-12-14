@@ -2,9 +2,7 @@ package com.cigt.mapper;
 
 import com.cigt.dto.CategoryDto;
 import com.cigt.dto.GoodsDto;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -13,21 +11,16 @@ import java.util.List;
  */
 @Mapper
 public interface GoodsMapper {
-    /**
-     * 获取所有商品信息
-     */
-    @Select("select * from t_goods limit #{currIndex} , #{pageSize}")
-    List<GoodsDto> getLoadmMoreGoods(@Param("currIndex") int currIndex,
-                               @Param("pageSize") int pageSize);
+
 
     /**
      * 依靠类别模糊查询商品
      */
-    @Select("select * from t_goods where category like CONCAT('%',#{category},'%')")
+    @Select("select * from t_goods where status = 0 and category like CONCAT('%',#{category},'%') LIMIT 0,8 ")
     List<GoodsDto> findGoodsByCategory(@Param("category") String category);
 
     /**
-     * 查询种类
+     * 获取种类
      */
     @Select("select * from t_category")
     List<CategoryDto> findAllCategory();
@@ -35,7 +28,7 @@ public interface GoodsMapper {
     /**
      * 模糊查询商品
      */
-    @Select("select * from t_goods where name like CONCAT('%',#{name},'%')")
+    @Select("select * from t_goods where status = 0 and name like CONCAT('%',#{name},'%')")
     List<GoodsDto> findGoodsByName(@Param("name") String name);
 
     /**
@@ -43,4 +36,26 @@ public interface GoodsMapper {
      */
     @Select("select * from t_goods where id = #{id}")
     List<GoodsDto> findGoodsById(@Param("id") int id);
+    /**
+     * 发布商品
+     **/
+    @Insert("insert into t_goods (name,depict,price,images,time," +
+            "user_id,num,category" +
+            ") VALUES (#{name},#{depict},#{price},#{images},#{time}," +
+            "#{user_id},#{num},#{category})")
+    @Options(useGeneratedKeys = true, keyProperty = "id",keyColumn="id")
+    int insertGoods(GoodsDto goodsDto);
+
+    /**
+     * 获取用户个人商品
+     */
+    @Select("select * from t_goods where user_id = #{user_id}")
+    List<GoodsDto> findUserGoods(@Param("user_id") int user_id);
+
+    /**
+     * 更改商品状态
+     */
+    @Update("update t_goods set status = 1 where user_id = #{userId} and id = #{id}")
+    int updateGoodsStatus(@Param("userId ") int userId,
+                          @Param("id") int id);
 }
