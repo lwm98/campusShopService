@@ -41,4 +41,10 @@ public interface UserMapper {
     int updateUserPassword(@Param("password") String password,
                            @Param("id") int id,
                            @Param("updated_at") String updated_at);
+    /**
+     * 修改用户头像
+     */
+    @Update("update t_user set image =#{imagePath} where id = #{id}")
+    int updateUserImage(@Param("imagePath") String imagePath,
+                        @Param("id") int user_id);
 }

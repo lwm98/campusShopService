@@ -7,7 +7,6 @@ import com.cigt.my_util.GetTime_util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * 用来处理用户操作的事务
@@ -59,5 +58,18 @@ public class UserService {
     public void updateUserPassword(String password,int id){
         String updated_at = getTime_util.GetNowTime_util();
         userMapper.updateUserPassword(password,id,updated_at);
+    }
+
+    /**
+     * 修改用户头像
+     */
+    public R updateUserImage(String userImage,int user_id){
+        try {
+            userMapper.updateUserImage(userImage, user_id);
+            return R.ok("修改成功");
+        }catch (Exception e){
+            System.out.println(e);
+            return R.error("修改出错");
+        }
     }
 }

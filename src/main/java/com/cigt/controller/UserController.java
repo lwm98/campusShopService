@@ -3,15 +3,14 @@ package com.cigt.controller;
 import com.cigt.base.R;
 import com.cigt.dto.GoodsDto;
 import com.cigt.dto.UserDto;
+import com.cigt.service.FileUpService;
 import com.cigt.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -29,6 +28,8 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private FileUpService fileUpService;
     /**
      * 用户登录
      */
@@ -146,5 +147,28 @@ public class UserController {
     public Map releaseGoodsInfo(GoodsDto goodsDto){
         return null;
     }
+
+    /**
+     * 用户上传头像
+     */
+    @PostMapping("/upUserImage")
+    @ApiOperation("用户上传图片")
+    public R upUserImage(@RequestParam("fileName") MultipartFile userImage,
+                         int type){
+        return fileUpService.upload(userImage,type);
+    }
+
+    /**
+     * 确定修改用户头像
+     */
+    @PostMapping("/updateUserImage")
+    @ApiOperation("修改用户头像")
+    public R updateUserImage(String imagePath,HttpServletRequest request){
+        //从session中获取用户信息
+        HttpSession sessoin=request.getSession();
+        UserDto userDto = (UserDto) sessoin.getAttribute("USER");
+        return userService.updateUserImage(imagePath,userDto.getId());
+    }
+
 
 }
