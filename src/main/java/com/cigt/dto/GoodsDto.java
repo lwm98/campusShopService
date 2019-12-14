@@ -17,4 +17,9 @@ public class GoodsDto {
     private int user_id;
     private int num;
     private String category;
+    private int Status;
+
+    private String banner_image1;
+    private String banner_image2;
+    private String banner_image3;
 }

@@ -12,9 +12,26 @@
     </resultMap>
 
     <select id="getLoadmMoreGoods" resultMap="data,count">
-        SELECT sql_calc_found_rows  * FROM t_goods where category = #{category} LIMIT #{pageNum},8 ;
+        SELECT sql_calc_found_rows  * FROM t_goods where status = 0 and category = #{category} LIMIT #{pageNum},8 ;
         SELECT FOUND_ROWS() as total ;
     </select>
+
+    <!--修改轮播图-->
+    <update id="updateGoodsBannerImages" >
+        update t_goods
+        <set>
+            <if test="goods.banner_image1 != null ">
+                banner_image1 = #{goods.banner_image1},
+            </if>
+            <if test="goods.banner_image2 != null ">
+                banner_image2 = #{goods.banner_image2},
+            </if>
+            <if test="goods.banner_image3 != null ">
+                banner_image3 = #{goods.banner_image3}
+            </if>
+        </set>
+        where id = #{goods.id}
+    </update>
 
 
 </mapper>

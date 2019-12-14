@@ -8,6 +8,7 @@ import com.cigt.mapper.CommentMapper;
 import com.cigt.my_util.GetTime_util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
  * 评论事务层
  */
 @Service
+@Transactional
 public class CommentService {
     @Autowired
     private CommentMapper commentMapper;

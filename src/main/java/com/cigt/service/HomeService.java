@@ -7,6 +7,7 @@ import com.cigt.mapper.GoodsMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.Map;
  * 主页事务逻辑
  */
 @Service
+@Transactional
 public class HomeService {
     @Autowired
     private GoodsDAO goodsDAO;
