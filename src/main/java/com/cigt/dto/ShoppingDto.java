@@ -17,10 +17,5 @@ public class ShoppingDto {
     private int status;
     private String created_at; //创建时间
     private String updated_at; //修改时间
-    private String name;
-    private String depict;
-    private int price;
-    private String images;
-    private int category;
-    private int goods_status;//商品是否还在架上
+    private GoodsDto goodsDtos;
 }

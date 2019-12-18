@@ -1,5 +1,6 @@
 package com.cigt.mapper;
 
+import com.cigt.dto.GoodsDto;
 import com.cigt.dto.ShoppingDto;
 import org.apache.ibatis.annotations.*;
 
@@ -7,6 +8,12 @@ import java.util.List;
 
 @Mapper
 public interface ShoppingMapper {
+
+    /**
+     * 查询商品信息
+     */
+    @Select("select * from t_goods where id = #{id}")
+   GoodsDto goodsById(@Param("id") int id);
 
     /**
      * 查询购物车信息
@@ -21,7 +28,7 @@ public interface ShoppingMapper {
      */
     @Insert("INSERT INTO t_shopping (goods_id,user_id,number,user_address,created_at,updated_at) " +
             "VALUES (#{goods_id},#{user_id},#{number},#{user_address},#{created_at},#{updated_at})")
-    ShoppingDto insertShopping(ShoppingDto shoppingDto);
+    int insertShopping(ShoppingDto shoppingDto);
 
     /**
      * 删除购物车信息
