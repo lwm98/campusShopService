@@ -33,23 +33,23 @@ public class HomeController {
 
         return homeService.getLoadmMoreGoods(category, pageNum);
     }
-//    /**
-//     * 分类查询
-//     */
-//    @PostMapping("/getGoodsCategoryInfo/{category}")
-//    @ApiOperation("分类查询")
-//    public Map getGoodsByCategoryInfo(@PathVariable("category") String category){
-//        Map map =new HashMap();
-//        try {
-//            List ls = homeService.getGoodsByCategory(category);
-//            map.put("getCategory",ls);
-//            return map;
-//        }catch (Exception e){
-//            System.out.println(e);
-//            map.put("getCategory","false");
-//            return map;
-//        }
-//    }
+    /**
+     * 分类查询
+     */
+    @PostMapping("/getGoodsCategoryInfo/{category}")
+    @ApiOperation("分类查询")
+    public Map getGoodsByCategoryInfo(@PathVariable("category") String category){
+        Map map =new HashMap();
+        try {
+            List ls = homeService.getGoodsByCategory(category);
+            map.put("getCategory",ls);
+            return map;
+        }catch (Exception e){
+            System.out.println(e);
+            map.put("getCategory","false");
+            return map;
+        }
+    }
     /**
      * 获取分类表
      */
