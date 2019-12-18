@@ -32,8 +32,13 @@ public interface GoodsMapper {
     List<GoodsDto> findGoodsByName(@Param("name") String name);
 
     /**
-     * 发布商品
+     * 模糊查询商品
      */
+    @Select("select * from t_goods where id = #{id}")
+    List<GoodsDto> findGoodsById(@Param("id") int id);
+    /**
+     * 发布商品
+     **/
     @Insert("insert into t_goods (name,depict,price,images,time," +
             "user_id,num,category" +
             ") VALUES (#{name},#{depict},#{price},#{images},#{time}," +
