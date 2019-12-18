@@ -15,7 +15,7 @@ public interface GoodsDAO {
      * 分页获取更多商品信息
      * @return
      */
-    List<List<?>> getLoadmMoreGoods(@Param("category") String category,
+    List<List<?>> getLoadmMoreGoods(@Param("category") int category,
                                      @Param("pageNum") int pageNum);
 
     /**
