@@ -37,14 +37,14 @@ public class UserController {
      */
     @PostMapping("/loginInfo")
     @ApiOperation("用户登录")
-    public Map loginInfo(UserDto userDto,HttpServletRequest request){
+    public Map loginInfo(UserDto userDto,HttpSession session){
         Map map =new HashMap();
         userDto = userService.userLogin(userDto);
         if(userDto!=null){
             map.put("login","true");
             //加入session
-            HttpSession sessoin=request.getSession();
-            sessoin.setAttribute("USER",userDto);
+            session.setAttribute("USER",userDto);
+            //System.out.println(session.getAttribute("USER"));
             map.put("User",userDto);
             return map;
         }

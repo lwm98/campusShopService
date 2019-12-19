@@ -6,11 +6,13 @@ import com.cigt.dto.CommentExt;
 import com.cigt.dto.UserDto;
 import com.cigt.mapper.CommentMapper;
 import com.cigt.my_util.GetTime_util;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -45,9 +47,10 @@ public class CommentService {
     /**
      * 用户评论
      */
-    public R sendComment(int goods_id, String content, int reply_id,int pid, HttpServletRequest httpServletRequest){
+    public R sendComment(int goods_id, String content, int reply_id, int pid, HttpSession session){
         CommentDto commentDto =new CommentDto();
-        UserDto userDto = (UserDto)httpServletRequest.getSession().getAttribute("USER");
+        //System.out.println(session.getAttribute("USER"));
+        UserDto userDto = (UserDto)session.getAttribute("USER");
         commentDto.setGoods_id(goods_id);
         commentDto.setUser_id(userDto.getId());
         commentDto.setContent(content);
