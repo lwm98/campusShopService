@@ -41,6 +41,7 @@ public class CommentController {
                              @RequestParam(required = false,defaultValue = "0") int pid,
                              @RequestParam(required = false,defaultValue = "0") int reply_id,
                              HttpSession session){
+        System.out.println("发表评论控制器"+session.getAttribute("USER"));
         return commentService.sendComment(goods_id,content,reply_id,pid,session);
     }
 }

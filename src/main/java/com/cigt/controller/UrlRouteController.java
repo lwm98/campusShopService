@@ -9,11 +9,29 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 @Controller
 public class UrlRouteController {
-    @GetMapping("/login")
-    public String login(){ return "login"; }
 
-    @GetMapping("/index")
+    @GetMapping("/index")       //首页
     public String index(){
         return "index";
+    }
+
+    @GetMapping("/register")     //注册
+    public String register(){
+        return "register";
+    }
+
+    @GetMapping("/category")     //购物
+    public String category(){
+        return "category";
+    }
+
+    @GetMapping("/basket")      //购物车
+    public String basket(){
+        return "basket";
+    }
+
+    @GetMapping("/detail")      //详情
+    public String detail(){
+        return "detail";
     }
 }

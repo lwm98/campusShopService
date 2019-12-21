@@ -44,7 +44,7 @@ public class UserController {
             map.put("login","true");
             //加入session
             session.setAttribute("USER",userDto);
-            //System.out.println(session.getAttribute("USER"));
+            System.out.println("登录"+session.getAttribute("USER"));
             map.put("User",userDto);
             return map;
         }
