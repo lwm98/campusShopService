@@ -187,7 +187,9 @@
                     <h1 class="text-center">{{good.data.name}}</h1>
                     <p class="goToDescription"><a href="#details" class="scroll-to">滚动到产品详情、评论</a></p>
                     <p class="price">${{good.data.price}}</p>
-                    <p class="text-center buttons"><a href="basket.html" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> 加入购物车</a><a href="basket.html" class="btn btn-outline-primary"><i class="fa fa-heart"></i> 加入愿望列表</a></p>
+                    <p class="text-center buttons">
+                        <a href="javascript:;" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> 立即购买</a>
+                      </p>
                   </div>
                   <div data-slider-id="1" class="owl-thumbs">
                     <button class="owl-thumb-item"><img :src="good.data.images" alt="" class="img-fluid"></button>
@@ -227,10 +229,10 @@
 				       </div>
 				       <div class="col-md-9 col-lg-10">
 						   <!-- 姓名，性别，账号 -->
-				         <h5>{{item.real_name}} 
-						 <i v-if="item.sex=='男'" class="el-icon-male" style="color:blue"></i> 
-						  <i v-if="item.sex=='女'" class="el-icon-female" style="color:deeppink"></i> 
-						 ( {{item.name}} ) </h5>
+				         <h5>{{item.real_name}}
+						 ( {{item.name}} )
+                             <i v-if="item.sex=='男'" class="el-icon-male" style="color:blue"></i>
+                             <i v-if="item.sex=='女'" class="el-icon-female" style="color:deeppink"></i> </h5>
 							<!-- 回复时间 -->
 				         <p class="posted"><i class="fa fa-clock-o"></i> {{item.create_time}}</p>
 							<!-- 评价内容 -->
@@ -238,8 +240,8 @@
 						 <!-- ------------------- -->
 						<el-collapse v-model="activeNames">
 						  <el-collapse-item :title="'回复 '+item.commentExts.length+'条 点击查看'" :name="item.id">
-						    <div v-for="(it,ix) in item.commentExts" :key="ix" style="display:flex;align-items: center;">
-								    <el-avatar size="large" :src="it.image"></el-avatar>
+						    <div v-for="(it,ix) in item.commentExts" :key="ix" style="display:flex;align-items: center;padding:5px">
+								    <el-avatar size="large" :src="it.image" style="width:40px;height:40px;"></el-avatar>
 									<span style="margin-left:10px;width:70%;"> {{it.real_name}} : {{it.content}}</span>
 									<span style="color:grey">{{it.create_time}}</span>
 									  
@@ -385,7 +387,8 @@
 					content:this.content,
 					goods_id:this.good.data.id,
 					pid:item.id,
-					reply_id:userinfo.id,
+					reply_id:item.user_id,
+                    userId:userinfo.id,
 				}).then(res=>{
 					if(res.code==0){
 						 this.$notify({

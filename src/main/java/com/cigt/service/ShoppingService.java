@@ -38,12 +38,12 @@ public class ShoppingService {
     /**
      * 插入购物车事务
      */
-    public R insertShopping(int goods_id,int number,String user_address, HttpServletRequest httpServletRequest){
+    public R insertShopping(int goods_id,int number,String user_address,int userId){
         ShoppingDto shoppingDto = new ShoppingDto();
         shoppingDto.setCreated_at(getTime_util.GetNowTime_util());
         shoppingDto.setUpdated_at(getTime_util.GetNowTime_util());
         //UserDto userDto = (UserDto)httpServletRequest.getSession().getAttribute("USER");
-        shoppingDto.setUser_id(11);
+        shoppingDto.setUser_id(userId);
         shoppingDto.setGoods_id(goods_id);
         shoppingDto.setNumber(number);
         shoppingDto.setUser_address(user_address);

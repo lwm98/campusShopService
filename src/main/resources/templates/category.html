@@ -102,76 +102,6 @@
                   </ul>
                 </div>
               </div>
-              <!-- <div class="card sidebar-menu mb-4">
-                <div class="card-header">
-                  <h3 class="h4 card-title">品牌 </h3>
-                </div>
-                <div class="card-body">
-                  <form>
-                    <div class="form-group">
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox"> 优衣库  (10)
-                        </label>
-                      </div>
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox"> 唯品会  (12)
-                        </label>
-                      </div>
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox"> 韩都衣舍  (15)
-                        </label>
-                      </div>
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox"> 太平鸟  (14)
-                        </label>
-                      </div>
-                    </div>
-                    <button class="btn btn-default btn-sm btn-primary"><i class="fa fa-pencil"></i> 选择</button>
-                  </form>
-                </div>
-              </div> -->
-             <!-- <div class="card sidebar-menu mb-4">
-                <div class="card-header">
-                  <h3 class="h4 card-title">颜色 </h3>
-                </div>
-                <div class="card-body">
-                  <form>
-                    <div class="form-group">
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox"><span class="colour white"></span> 白 (14)
-                        </label>
-                      </div>
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox"><span class="colour blue"></span> 蓝 (10)
-                        </label>
-                      </div>
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox"><span class="colour green"></span>  绿 (20)
-                        </label>
-                      </div>
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox"><span class="colour yellow"></span>  黄 (13)
-                        </label>
-                      </div>
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox"><span class="colour red"></span>  红 (10)
-                        </label>
-                      </div>
-                    </div>
-                    <button class="btn btn-default btn-sm btn-primary"><i class="fa fa-pencil"></i> 选择</button>
-                  </form>
-                </div>
-              </div> -->
-              <!-- *** MENUS AND FILTERS END ***-->
               <div class="banner"><a href="#"><img src="/static/img/banner.jpg" alt="sales 2014" class="img-fluid"></a></div>
             </div>
             <div class="col-lg-9">
@@ -214,7 +144,7 @@
                       <p class="buttons">
 						  <a href="detail" @click="ToDetail(item)"
 						  class="btn btn-outline-secondary">查看详情</a>
-						  <a href="javascript:;" class="btn btn-primary" @click="AddBasket(item)">
+						  <a href="javascript:;" class="btn btn-primary" @click="ShowAddBasket(item)">
 							  <i class="fa fa-shopping-cart"></i>加入购物车</a></p>
                     </div>
                   </div>
@@ -231,6 +161,20 @@
 				  </el-pagination>
               
               </div>
+              <el-dialog :title="'('+addbasket.name+')添加至购物车'" :visible.sync="centerDialogVisible">
+                <el-form  >
+                  <el-form-item label="数量" required>
+                    <el-input-number v-model="num"  :min="1"  ></el-input-number>
+                  </el-form-item>
+                  <el-form-item label="地址"  required>
+                    <el-input v-model="address"></el-input>
+                  </el-form-item>
+                </el-form>
+                <div slot="footer" class="dialog-footer">
+                  <el-button @click="centerDialogVisible = false">取 消</el-button>
+                  <el-button type="primary" @click="AddBasket">确 定</el-button>
+                </div>
+              </el-dialog>
             </div>
             <!-- /.col-lg-9-->
           </div>
@@ -259,6 +203,11 @@
 		var CIGTcategory=new Vue({
 			el:'#CIGTcategory',
 			data:{
+              centerDialogVisible:false,    //加入购物车弹窗显示参数
+              addbasket:{},       //加入购物车商品参数
+              num:1,          //数量
+              address:null,     //地址
+
 				total:null,		//控制分页页数
 				type:{},		//分类标题
 				typelist:null,	//商品分类列表
@@ -285,16 +234,36 @@
 				})
 			},
 			methods:{
+			  ShowAddBasket(item){
+			    this.centerDialogVisible=true
+                this.addbasket=item
+              },
               //加入购物车
-              AddBasket(item){
-                  console.log(item)
-                // MyAjax('/api/insertShoppingInfo','POST',{
-                //   goods_id:item.id,
-                //   number:1,
-                //
-                // }).then(res=>{
-                //
-                // })
+              AddBasket(){
+                let userinfo=JSON.parse(sessionStorage.getItem('userinfo'))
+                if(userinfo==null){
+                  this.$notify({title: '未登录，请先登录',type: 'warning'});
+                  return
+                }
+                if(this.address==null||this.address==''){this.$notify({title: '地址不能为空',type: 'warning'});return}
+			    MyAjax('/api/insertShoppingInfo','POST',{
+                  goods_id:this.addbasket.id,
+                  number:this.num,
+                  user_address:this.address,
+                  userId:userinfo.id
+                }).then(res=>{
+                  if(res.code==0){
+                    this.$notify({
+                      title: '加入购物车成功',
+                      type: 'success'
+                    });
+                    this.centerDialogVisible=false
+                  }else{
+                    this.$notify.error({
+                      title: '加入购物车失败',
+                    });
+                  }
+                })
               },
 				//切换页数
 				ChangePage(e){

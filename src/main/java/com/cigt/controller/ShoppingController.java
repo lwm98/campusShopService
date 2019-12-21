@@ -42,8 +42,8 @@ public class ShoppingController {
     public R insertShoppingInfo(int goods_id,
                                 int number,
                                 String user_address,
-                                HttpServletRequest httpServletRequest){
-        return shoppingService.insertShopping(goods_id,number,user_address,httpServletRequest);
+                                int userId ){
+        return shoppingService.insertShopping(goods_id,number,user_address,userId);
     }
 
     /**
