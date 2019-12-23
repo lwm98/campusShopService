@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>我的商品</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="/static/vendor/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="/static/vendor/font-awesome/css/font-awesome.min.css">
+    <!-- Google fonts - Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700">
+    <!-- owl carousel-->
+    <link rel="stylesheet" href="/static/vendor/owl.carousel/assets/owl.carousel.css">
+    <link rel="stylesheet" href="/static/vendor/owl.carousel/assets/owl.theme.default.css">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="/static/css/style.default.css" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="/static/css/custom.css">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="/static/favicon.png">
+    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+    <!-- 头部 -->
+    <link rel="import" href="/static/header.html" id="header">
+    <!-- 底部 -->
+    <link rel="import" href="/static/footer.html" id="footer">
+
+</head>
+<body>
+
+<script>
+    document.write(header.import.body.innerHTML);
+</script>
+
+<div id="CIGTusergood">
+<div id="all">
+    <div id="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- breadcrumb-->
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index">首页</a></li>
+                            <li aria-current="page" class="breadcrumb-item">我的商品</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-3">
+                    <!--
+                    *** CUSTOMER MENU ***
+                    _________________________________________________________
+                    -->
+                    <div class="card sidebar-menu">
+                        <div class="card-header">
+                            <h3 class="h4 card-title">当前查看</h3>
+                        </div>
+                        <div class="card-body">
+                            <ul class="nav nav-pills flex-column">
+                                <a href="userinfo" class="nav-link ">
+                                    <i class="fa fa-user"></i> 我的信息
+                                </a>
+                                <a href="usergood" class="nav-link active">
+                                    <i class="fa fa-heart"></i> 我的商品
+                                </a>
+                                <a href="javascript:;" class="nav-link">
+                                    <i class="fa fa-list"></i> 我的订单
+                                </a>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /.col-lg-3-->
+                    <!-- *** CUSTOMER MENU END ***-->
+                </div>
+                <div id="customer-order" class="col-lg-9">
+                    <div class="box">
+                        <h1>我的商品</h1>
+                        <p class="text-muted">如果您有任何问题，请随时与我们联系，我们的客户服务中心为您提供全天候服务。</p>
+                        <hr>
+                        <div class="table-responsive mb-4">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th colspan="2" style="text-align: center;">商品</th>
+                                    <th>数量</th>
+                                    <th>单价</th>
+                                    <th>类型</th>
+                                    <th>描述</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="(item,index) in mygoodlist" :key="index">
+                                    <td><a href="javascript:;"><img :src="item.images" alt="暂无"></a></td>
+                                    <td><a href="detail" @click="ToDetail(item)">{{item.name}}</a></td>
+                                    <td>{{item.num}}</td>
+                                    <td>${{item.price}}</td>
+                                    <td>{{item.category}}</td>
+                                    <td>{{item.depict}}</td>
+                                    <td>
+                                        <a href="javascript:;">删除</a>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                                <tfoot>
+                                <!--  <tr>
+                                    <th colspan="5" class="text-right">Shipping and handling</th>
+                                    <th>$10.00</th>
+                                  </tr>
+                                  <tr>
+                                    <th colspan="5" class="text-right">Tax</th>
+                                    <th>$0.00</th>
+                                  </tr>
+                                  <tr>
+                                    <th colspan="5" class="text-right">Total</th>
+                                    <th>$456.00</th>
+                                  </tr> -->
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+<script>
+    document.write(footer.import.body.innerHTML);
+</script>
+<!-- *** COPYRIGHT END ***-->
+<!-- JavaScript files-->
+<script src="/static/vendor/jquery/jquery.min.js"></script>
+<script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/static/vendor/jquery.cookie/jquery.cookie.js"> </script>
+<script src="/static/vendor/owl.carousel/owl.carousel.min.js"></script>
+<script src="/static/vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.js"></script>
+<script src="/static/js/front.js"></script>
+</body>
+<script>
+    let userinfo=sessionStorage.getItem('userinfo')
+    var CIGTusergood=new Vue({
+        el:'#CIGTusergood',
+        data:{
+            mygoodlist:null
+        },
+        created(){
+          this.GetMyGoodList()
+        },
+        methods:{
+            //跳转详情页
+            ToDetail(item){
+                let good={
+                    type:'搜索结果',
+                    data:item
+                }
+                sessionStorage.setItem('good',JSON.stringify(good))
+            },
+           //获取我的商品列表
+           GetMyGoodList(){
+               if(userinfo==undefined||userinfo==null){
+                   this.$notify({title: '未登录，请先登录',type: 'warning'});
+                   return
+               }
+               userinfo=JSON.parse(userinfo)
+                MyAjax('/api/findUserGoods','POST',{
+                    userId:userinfo.id
+                }).then(res=>{
+                    if(res.code==0){
+                        this.mygoodlist=res.data
+                    }else{
+                        this.$notify.error({
+                            title: '网络错误',
+                        });
+                    }
+                })
+           }
+        }
+    })
+</script>
+</html>

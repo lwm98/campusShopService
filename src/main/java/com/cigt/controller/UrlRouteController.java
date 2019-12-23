@@ -34,4 +34,14 @@ public class UrlRouteController {
     public String detail(){
         return "detail";
     }
+
+    @GetMapping("/userinfo")      //我的信息
+    public String userinfo(){
+        return "userinfo";
+    }
+
+    @GetMapping("/usergood")      //我的商品
+    public String usergood(){
+        return "usergood";
+    }
 }

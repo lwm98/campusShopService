@@ -43,9 +43,9 @@ public class UserController {
         if(userDto!=null){
             map.put("login","true");
             //加入session
-            session.setAttribute("USER",userDto);
-            System.out.println("登录"+session.getAttribute("USER"));
+           // session.setAttribute("USER",userDto);
             map.put("User",userDto);
+            System.out.println(map.get("User"));
             return map;
         }
         map.put("login","false");
@@ -175,11 +175,11 @@ public class UserController {
 
     @PostMapping("/findUserGoods")
     @ApiOperation("查看自己的商品")
-    public R findUserGoods(HttpServletRequest request){
+    public R findUserGoods(int userId){
         //从session中获取用户信息
-        HttpSession sessoin=request.getSession();
-        UserDto userDto = (UserDto) sessoin.getAttribute("USER");
-        return userService.findUserGoods(userDto.getId());
+       // HttpSession sessoin=request.getSession();
+        //UserDto userDto = (UserDto) sessoin.getAttribute("USER");
+        return userService.findUserGoods(userId);
     }
 
     @PostMapping("/delUserGoods")
