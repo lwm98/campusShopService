@@ -184,11 +184,11 @@ public class UserController {
 
     @PostMapping("/delUserGoods")
     @ApiOperation("删除自己的商品")
-    public R delUserGoods(int goodsId,HttpServletRequest request){
+    public R delUserGoods(int goodsId){
         //从session中获取用户信息
-        HttpSession sessoin=request.getSession();
-        UserDto userDto = (UserDto) sessoin.getAttribute("USER");
-        return userService.delUserGoods(userDto.getId(),goodsId);
+       // HttpSession sessoin=request.getSession();
+       // UserDto userDto = (UserDto) sessoin.getAttribute("USER");
+        return userService.delUserGoods(goodsId);
     }
 
 }

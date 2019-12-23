@@ -55,7 +55,6 @@ public interface GoodsMapper {
     /**
      * 更改商品状态
      */
-    @Update("update t_goods set status = 1 where user_id = #{userId} and id = #{id}")
-    int updateGoodsStatus(@Param("userId ") int userId,
-                          @Param("id") int id);
+    @Update("update t_goods set `status`=(case `status` when 0 then 1 when 1 then 0 end) where id=#{id}")
+    int updateGoodsStatus(@Param("id") int goodsId );
 }

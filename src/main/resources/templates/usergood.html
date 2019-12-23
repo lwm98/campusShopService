@@ -91,6 +91,7 @@
                                     <th>单价</th>
                                     <th>类型</th>
                                     <th>描述</th>
+                                    <th>状态</th>
                                     <th>操作</th>
                                 </tr>
                                 </thead>
@@ -102,8 +103,12 @@
                                     <td>${{item.price}}</td>
                                     <td>{{item.category}}</td>
                                     <td>{{item.depict}}</td>
+                                    <td>{{item.status==0?'上架中':'下架中'}}</td>
                                     <td>
-                                        <a href="javascript:;">删除</a>
+                                        <a href="javascript:;"
+                                           @click="ChangeMyGoodStatus(item)">
+                                            {{item.status==0?'下架':'上架'}}
+                                        </a>
                                     </td>
                                 </tr>
 
@@ -146,6 +151,7 @@
 </body>
 <script>
     let userinfo=sessionStorage.getItem('userinfo')
+    userinfo=JSON.parse(userinfo)
     var CIGTusergood=new Vue({
         el:'#CIGTusergood',
         data:{
@@ -155,6 +161,35 @@
           this.GetMyGoodList()
         },
         methods:{
+            //切换商品上下架
+            ChangeMyGoodStatus(item){
+                this.$confirm(`是否下架${item.name}商品?`, '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    MyAjax('/api/delUserGoods','POST',{
+                        goodsId:item.id
+                    }).then(res=>{
+                        if(res.code==0){
+                            this.$notify({
+                                title: '切换成功',
+                                type: 'success'
+                            });
+                            this.GetMyGoodList()
+                        }else{
+                            this.$notify.error({
+                                title: '切换失败',
+                            });
+                        }
+                    })
+
+                }).catch(() => {
+                    this.$notify.error({
+                        title: '删除失败',
+                    });
+                });
+            },
             //跳转详情页
             ToDetail(item){
                 let good={
@@ -169,7 +204,6 @@
                    this.$notify({title: '未登录，请先登录',type: 'warning'});
                    return
                }
-               userinfo=JSON.parse(userinfo)
                 MyAjax('/api/findUserGoods','POST',{
                     userId:userinfo.id
                 }).then(res=>{
