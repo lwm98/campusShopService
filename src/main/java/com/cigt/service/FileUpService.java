@@ -63,7 +63,7 @@ public class FileUpService {
             //保存文件
             file.transferTo(dest);
             //返回文件名
-            return R.ok("/"+IMAGE_PATH+fileName+"/"+newName);
+            return R.ok("/"+IMAGE_PATH+"/"+newName);
         } catch (IllegalStateException e) {
             // TODO Auto-generated catch block
             log.error("环境问题"+e);

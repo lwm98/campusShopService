@@ -165,11 +165,11 @@ public class UserController {
 
     @PostMapping("/publishedGoods")
     @ApiOperation("发表商品")
-    public R publishedGoods(GoodsDto goodsDto,HttpServletRequest request){
+    public R publishedGoods(GoodsDto goodsDto,int userId){
         //从session中获取用户信息
-        HttpSession sessoin=request.getSession();
-        UserDto userDto = (UserDto) sessoin.getAttribute("USER");
-        goodsDto.setUser_id(userDto.getId());
+       // HttpSession sessoin=request.getSession();
+        //UserDto userDto = (UserDto) sessoin.getAttribute("USER");
+        goodsDto.setUser_id(userId);
         return userService.publishedGoods(goodsDto);
     }
 

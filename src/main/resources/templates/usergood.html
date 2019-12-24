@@ -81,6 +81,70 @@
                     <div class="box">
                         <h1>我的商品</h1>
                         <p class="text-muted">如果您有任何问题，请随时与我们联系，我们的客户服务中心为您提供全天候服务。</p>
+                        <el-button style="background-color: #4fbfa8;color:white" @click="dialogFormVisible=true">发表商品</el-button>
+                        <el-dialog title="发表商品" :visible.sync="dialogFormVisible">
+                            <el-form >
+                                <el-form-item label="名称" >
+                                    <el-input v-model="setgood.name" autocomplete="off"></el-input>
+                                </el-form-item>
+                                <el-form-item label="价格" >
+                                    <el-input v-model="setgood.price" type="number"
+                                              autocomplete="off"></el-input>
+                                </el-form-item>
+                                <el-form-item label="描述" >
+                                    <el-input v-model="setgood.depict" autocomplete="off"></el-input>
+                                </el-form-item>
+                                <el-form-item label="数量" >
+                                    <el-input v-model="setgood.num" type="number"
+                                              autocomplete="off"></el-input>
+                                </el-form-item>
+                                <el-form-item label="类别" >
+                                    <select v-model="setgood.category">
+                                        <option value ="1">服装衣物</option>
+                                        <option value ="2">书籍课本</option>
+                                        <option value="3">电子产品</option>
+                                        <option value="4">实用家具</option>
+                                        <option value="5">出行票卷</option>
+                                        <option value="6">爱情读物</option>
+                                    </select>
+                                </el-form-item>
+                                <el-form-item label="主图" >
+                                    <el-upload
+                                            action="http://localhost:8080/api/upUserImage"
+                                            name="fileName"
+                                            list-type="picture-card"
+                                            :on-success="ImageSuccess"
+                                            :data="{type:2}"
+                                            limit="1"
+                                            :on-preview="handlePictureCardPreview"
+                                            :on-remove="handleRemove">
+                                        <i class="el-icon-plus"></i>
+                                    </el-upload>
+                                    <el-dialog :visible.sync="dialogVisible">
+                                        <img width="100%" :src="dialogImageUrl" alt="">
+                                    </el-dialog>
+                                 </el-form-item>
+                                <el-form-item label="轮播图" >
+                                    <el-upload
+                                            action="http://localhost:8080/api/upUserImage"
+                                            name="fileName"
+                                            list-type="picture-card"
+                                            :on-success="BannerSuccess"
+                                            :data="{type:2}"
+                                            limit="3"
+                                            :on-preview="handlePictureCardPreview"
+                                            :on-remove="handleRemove">
+                                        <i class="el-icon-plus"></i>
+                                    </el-upload>
+                                </el-form-item>
+                            </el-form>
+                            <div slot="footer" class="dialog-footer">
+                                <el-button @click="dialogFormVisible = false">取 消</el-button>
+                                <el-button type="primary" style="background-color: #4fbfa8;color:white"
+                                           @click="SetGood">发 表</el-button>
+                            </div>
+                        </el-dialog>
+
                         <hr>
                         <div class="table-responsive mb-4">
                             <table class="table">
@@ -114,18 +178,17 @@
 
                                 </tbody>
                                 <tfoot>
-                                <!--  <tr>
-                                    <th colspan="5" class="text-right">Shipping and handling</th>
-                                    <th>$10.00</th>
-                                  </tr>
-                                  <tr>
-                                    <th colspan="5" class="text-right">Tax</th>
-                                    <th>$0.00</th>
-                                  </tr>
-                                  <tr>
-                                    <th colspan="5" class="text-right">Total</th>
-                                    <th>$456.00</th>
-                                  </tr> -->
+<!--                                 <tr>-->
+<!--                                    <th colspan="5" class="text-right"><el-button>默认按钮</el-button></th>-->
+<!--                                  </tr>-->
+<!--                                  <tr>-->
+<!--                                    <th colspan="5" class="text-right">Tax</th>-->
+<!--                                    <th>$0.00</th>-->
+<!--                                  </tr>-->
+<!--                                  <tr>-->
+<!--                                    <th colspan="5" class="text-right">Total</th>-->
+<!--                                    <th>$456.00</th>-->
+<!--                                  </tr>-->
                                 </tfoot>
                             </table>
                         </div>
@@ -155,12 +218,62 @@
     var CIGTusergood=new Vue({
         el:'#CIGTusergood',
         data:{
-            mygoodlist:null
+            dialogImageUrl: '',
+            dialogVisible: false,
+
+            dialogFormVisible:false,       //发表商品显示框参数
+            banner:[],          //轮播图参数
+            setgood:{},             //发表商品参数
+            mygoodlist:null         //商品列表
         },
         created(){
           this.GetMyGoodList()
         },
         methods:{
+            //轮播图
+            BannerSuccess(e){
+                if(e.code==0){
+                    this.$message({
+                        message: '上传成功',
+                        type: 'success'
+                    });
+                    this.banner.push(e.msg)
+                }else{
+                    this.$message.error('上传失败');
+                }
+            },
+            // 商品主图
+            ImageSuccess(e){
+                if(e.code==0){
+                    this.$message({
+                        message: '上传成功',
+                        type: 'success'
+                    });
+                    this.setgood.images=e.msg
+                }else{
+                    this.$message.error('上传失败');
+                }
+            },
+            handleRemove(file, fileList) {
+                console.log(file, fileList);
+            },
+            handlePictureCardPreview(file) {
+                this.dialogImageUrl = file.url;
+                this.dialogVisible = true;
+            },
+            //发表商品
+            SetGood(){
+                for(let item in this.setgood){
+                    console.log(item)
+                }
+                return
+                this.setgood.time=new Date().toLocaleString()
+                this.setgood.banner_image1=this.setgood.banner[0]
+                this.setgood.banner_image2=this.setgood.banner[1]
+                this.setgood.banner_image3=this.setgood.banner[2]
+              console.log(this.setgood)
+
+            },
             //切换商品上下架
             ChangeMyGoodStatus(item){
                 this.$confirm(`是否下架${item.name}商品?`, '提示', {
