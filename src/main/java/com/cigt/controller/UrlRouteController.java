@@ -44,4 +44,9 @@ public class UrlRouteController {
     public String usergood(){
         return "usergood";
     }
+
+    @GetMapping("/userorder")      //我的订单
+    public String userorder(){
+        return "userorder";
+    }
 }
