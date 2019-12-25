@@ -1,6 +1,0 @@
-index.html			首页 
-category.html		购物主页
-detail.html			商品详情
-header.html			头部
-footer.html			底部
-register.html		注册
