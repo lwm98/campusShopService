@@ -102,18 +102,37 @@ public class ShoppingService {
         }
         return R.error("订单为空");
     }
-
     /**
-     * 支付成功事务
+     * 立即购买事务
      */
-    public R successPay(int id){
+    public R successPayOne(int user_id,int goods_id,int number){
+        String created_at = getTime_util.GetNowTime_util();
         String updated_at = getTime_util.GetNowTime_util();
+        int status = 1;
         try {
-            shoppingMapper.successPay(id,updated_at);
+            shoppingMapper.successPayOne(user_id,goods_id,number,status,created_at,updated_at);
             return R.ok("支付成功");
         }catch (Exception e){
             System.out.println(e);
             return R.error("支付失败");
         }
     }
+
+    /**
+     * 多个支付接口
+     */
+    public R successPay(int[] id){
+        String updated_at = getTime_util.GetNowTime_util();
+        try {
+            for( int i=0 ; i<id.length ; i++){
+                shoppingMapper.successPay(id[i],updated_at);
+            }
+            System.out.println(id.toString());
+            return R.ok("支付成功");
+        }catch (Exception e){
+            System.out.println(e);
+            return R.error("支付失败");
+        }
+    }
+
 }

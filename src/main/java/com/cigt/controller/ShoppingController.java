@@ -68,9 +68,16 @@ public class ShoppingController {
     public R getOrderByUserIdInfo(int user_id){ return shoppingService.allOrderByUserId(user_id); }
 
     /**
-     * 支付接口
+     * 单个支付接口
+     */
+    @PostMapping("/successPayOneInfo")
+    @ApiOperation("单个支付接口")
+    public R successPayInfo(int user_id,int goods_id,int number){ return shoppingService.successPayOne(user_id,goods_id,number); }
+
+    /**
+     * 多个商品支付接口
      */
     @PostMapping("/successPayInfo")
-    @ApiOperation("支付接口")
-    public R successPayInfo(int id){ return shoppingService.successPay(id); }
+    @ApiOperation("多个支付接口")
+    public R successPayInfo(int[] id) { return shoppingService.successPay(id);  }
 }
