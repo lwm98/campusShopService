@@ -40,9 +40,9 @@ public interface GoodsMapper {
      * 发布商品
      **/
     @Insert("insert into t_goods (name,depict,price,images,time," +
-            "user_id,num,category" +
+            "user_id,num,category,banner_image1,banner_image2,banner_image3" +
             ") VALUES (#{name},#{depict},#{price},#{images},#{time}," +
-            "#{user_id},#{num},#{category})")
+            "#{user_id},#{num},#{category},#{banner_image1},#{banner_image2},#{banner_image3})")
     @Options(useGeneratedKeys = true, keyProperty = "id",keyColumn="id")
     int insertGoods(GoodsDto goodsDto);
 
@@ -55,7 +55,6 @@ public interface GoodsMapper {
     /**
      * 更改商品状态
      */
-    @Update("update t_goods set status = 1 where user_id = #{userId} and id = #{id}")
-    int updateGoodsStatus(@Param("userId ") int userId,
-                          @Param("id") int id);
+    @Update("update t_goods set `status`=(case `status` when 0 then 1 when 1 then 0 end) where id=#{id}")
+    int updateGoodsStatus(@Param("id") int goodsId );
 }

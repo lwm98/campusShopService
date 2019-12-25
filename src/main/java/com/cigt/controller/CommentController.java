@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * 评论控制器
@@ -39,7 +40,7 @@ public class CommentController {
                              String content,
                              @RequestParam(required = false,defaultValue = "0") int pid,
                              @RequestParam(required = false,defaultValue = "0") int reply_id,
-                             HttpServletRequest httpServletRequest){
-        return commentService.sendComment(goods_id,content,reply_id,pid,httpServletRequest);
+                             int userId){
+        return commentService.sendComment(goods_id,content,reply_id,pid,userId);
     }
 }

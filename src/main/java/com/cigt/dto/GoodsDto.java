@@ -16,7 +16,7 @@ public class GoodsDto {
     private String updated_at;
     private int user_id;
     private int num;
-    private String category;
+    private int category;
     private int Status;
 
     private String banner_image1;

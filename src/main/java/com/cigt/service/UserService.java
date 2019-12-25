@@ -121,9 +121,10 @@ public class UserService {
     /**
      * 删除自己的商品
      */
-    public R delUserGoods(int userId,int goodsId){
+    public R delUserGoods(int goodsId){
+        System.out.println(goodsId);
         try {
-            goodsMapper.updateGoodsStatus(userId, goodsId);
+            goodsMapper.updateGoodsStatus(goodsId);
             return R.ok("删除自己的商品成功");
         }catch (Exception e){
             System.out.println("删除自己的商品失败"+e);

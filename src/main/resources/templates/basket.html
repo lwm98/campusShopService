@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>购物车</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="all,follow">
+  <!-- Bootstrap CSS-->
+  <link rel="stylesheet" href="/static/vendor/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome CSS-->
+  <link rel="stylesheet" href="/static/vendor/font-awesome/css/font-awesome.min.css">
+  <!-- Google fonts - Roboto -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700">
+  <!-- owl carousel-->
+  <link rel="stylesheet" href="/static/vendor/owl.carousel/assets/owl.carousel.css">
+  <link rel="stylesheet" href="/static/vendor/owl.carousel/assets/owl.theme.default.css">
+  <!-- theme stylesheet-->
+  <link rel="stylesheet" href="/static/css/style.default.css" id="theme-stylesheet">
+  <!-- Custom stylesheet - for your changes-->
+  <link rel="stylesheet" href="/static/css/custom.css">
+  <!-- Favicon-->
+  <link rel="shortcut icon" href="/static/favicon.png">
+  <!-- Tweaks for older IEs--><!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+  <!-- 头部 -->
+  <link rel="import" href="/static/header.html" id="header">
+  <!-- 底部 -->
+  <link rel="import" href="/static/footer.html" id="footer">
+</head>
+<body>
+<script>
+  document.write(header.import.body.innerHTML);
+</script>
+<div id="CIGTbasket">
+
+<div id="all">
+  <div id="content">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <!-- breadcrumb-->
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="index">首页</a></li>
+              <li aria-current="page" class="breadcrumb-item active">购物车</li>
+            </ol>
+          </nav>
+        </div>
+        <div id="basket" class="col-lg-9">
+          <div class="box">
+            <form method="post" action="checkout1">
+              <h1>购物车</h1>
+              <p class="text-muted">您当前的购物车中有3个商品。</p>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                  <tr>
+                    <th colspan="2">产品</th>
+                    <th>数量</th>
+                    <th>单价</th>
+                    <th>地址</th>
+                    <th colspan="2">总价</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+
+                  <tr v-for="(item,index) in goodlist" :key="index">
+                    <td><a href="#"><img :src="item.goodsDtos.images" alt="White Blouse Armani"></a></td>
+                    <td><a href="#">{{item.goodsDtos.name}}</a></td>
+                    <td>
+                      {{item.number}}
+                    </td>
+                    <td>${{item.goodsDtos.price}}</td>
+                    <td>{{item.user_address}}</td>
+                    <td>${{item.goodsDtos.price*item.number}}</td>
+                    <td><a href="javascript:;"  @click="ShowUpdBasket(item)"><i class="el-icon-edit"></i></a></td>
+                    <td><a href="javascript:;"  @click="DelBasket(item)" ><i class="fa fa-trash-o"></i></a></td>
+                  </tr>
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <th colspan="5">总价</th>
+                    <th colspan="2">${{total}}</th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <el-dialog title="编辑" :visible.sync="centerDialogVisible">
+                <el-form  >
+                  <el-form-item label="数量" required>
+                    <el-input-number v-model="updbasket.number"  :min="1"  ></el-input-number>
+                  </el-form-item>
+                  <el-form-item label="地址"  required>
+                    <el-input v-model="updbasket.user_address"></el-input>
+                  </el-form-item>
+                </el-form>
+                <div slot="footer" class="dialog-footer">
+                  <el-button @click="centerDialogVisible = false">取 消</el-button>
+                  <el-button type="primary" @click="UpdBasket">确 定</el-button>
+                </div>
+              </el-dialog>
+              <!-- /.table-responsive-->
+              <div class="box-footer d-flex justify-content-between flex-column flex-lg-row">
+                <div class="left"><a href="category" class="btn btn-outline-secondary"><i class="fa fa-chevron-left"></i> 继续购物</a></div>
+                <div class="right">
+                  <a class="btn btn-outline-secondary" href="javascript:;"  @click="GetUserComment()"
+                  ><i class="fa fa-refresh"></i> 更新购物车</a>
+                  <button type="submit" class="btn btn-primary">继续结帐 <i class="fa fa-chevron-right"></i></button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- /.box-->
+          <div class="row same-height-row">
+            <div class="col-lg-3 col-md-6">
+              <div class="box same-height">
+                <h3>你也可能喜欢这些产品</h3>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="product same-height">
+                <div class="flip-container">
+                  <div class="flipper">
+                    <div class="front"><a href="detail.html"><img src="/static/img/product2.jpg" alt="" class="img-fluid"></a></div>
+                    <div class="back"><a href="detail.html"><img src="/static/img/product2_2.jpg" alt="" class="img-fluid"></a></div>
+                  </div>
+                </div><a href="detail.html" class="invisible"><img src="/static/img/product2.jpg" alt="" class="img-fluid"></a>
+                <div class="text">
+                  <h3>白色短袖</h3>
+                  <p class="price">$143</p>
+                </div>
+              </div>
+              <!-- /.product-->
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="product same-height">
+                <div class="flip-container">
+                  <div class="flipper">
+                    <div class="front"><a href="detail.html"><img src="/static/img/product1.jpg" alt="" class="img-fluid"></a></div>
+                    <div class="back"><a href="detail.html"><img src="/static/img/product1_2.jpg" alt="" class="img-fluid"></a></div>
+                  </div>
+                </div><a href="detail.html" class="invisible"><img src="/static/img/product1.jpg" alt="" class="img-fluid"></a>
+                <div class="text">
+                  <h3>棕色外套</h3>
+                  <p class="price">$143</p>
+                </div>
+              </div>
+              <!-- /.product-->
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="product same-height">
+                <div class="flip-container">
+                  <div class="flipper">
+                    <div class="front"><a href="detail.html"><img src="/static/img/product3.jpg" alt="" class="img-fluid"></a></div>
+                    <div class="back"><a href="detail.html"><img src="/static/img/product3_2.jpg" alt="" class="img-fluid"></a></div>
+                  </div>
+                </div><a href="detail.html" class="invisible"><img src="/static/img/product3.jpg" alt="" class="img-fluid"></a>
+                <div class="text">
+                  <h3>黑色外套</h3>
+                  <p class="price">$143</p>
+                </div>
+              </div>
+              <!-- /.product-->
+            </div>
+          </div>
+        </div>
+        <!-- /.col-lg-9-->
+        <div class="col-lg-3">
+          <div id="order-summary" class="box">
+            <div class="box-header">
+              <h3 class="mb-0">订单摘要</h3>
+            </div>
+            <p class="text-muted">运输和附加成本是根据您输入的值计算的。</p>
+            <div class="table-responsive">
+              <table class="table">
+                <tbody>
+                <tr>
+                  <td>订单小计</td>
+                  <th>${{total}}</th>
+                </tr>
+                <tr>
+                  <td>装运和搬运</td>
+                  <th>$0.00</th>
+                </tr>
+                <tr>
+                  <td>税收</td>
+                  <th>$0.00</th>
+                </tr>
+                <tr class="total">
+                  <td>总价</td>
+                  <th>${{total}}</th>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="box">
+            <div class="box-header">
+              <h4 class="mb-0">优惠代码</h4>
+            </div>
+            <p class="text-muted">如果您有优惠券代码，请在下面的框中输入。</p>
+            <form>
+              <div class="input-group">
+                <input type="text" class="form-control"><span class="input-group-append">
+                      <button type="button" class="btn btn-primary"><i class="fa fa-gift"></i></button></span>
+              </div>
+              <!-- /input-group-->
+            </form>
+          </div>
+        </div>
+        <!-- /.col-md-3-->
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<script>
+  document.write(footer.import.body.innerHTML);
+</script>
+
+<!-- *** COPYRIGHT END ***-->
+<!-- JavaScript files-->
+<script src="/static/vendor/jquery/jquery.min.js"></script>
+<script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/static/vendor/jquery.cookie/jquery.cookie.js"> </script>
+<script src="/static/vendor/owl.carousel/owl.carousel.min.js"></script>
+<script src="/static/vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.js"></script>
+<script src="/static/js/front.js"></script>
+</body>
+<script>
+  var CIGTbasket=new Vue({
+    el: '#CIGTbasket',
+    data: {
+      centerDialogVisible:false,
+        total:0,
+        goodlist:null,
+      updbasket:{ }
+    },
+    created() {
+      this.GetUserComment()
+    },
+    methods:{
+      //显示修改弹窗
+      ShowUpdBasket(item){
+        this.centerDialogVisible=true
+        this.updbasket=JSON.parse(JSON.stringify(item))
+      },
+      //确认修改
+      UpdBasket(){
+        if(this.updbasket.user_address==''){
+          this.$message({message: '地址不可为空', type: 'warning'});return
+        }
+        MyAjax('/api/updateShoppingInfo','POST',{
+          id:this.updbasket.id,
+          number:this.updbasket.number,
+          user_address:this.updbasket.user_address
+        }).then(res=>{
+          if(res.code==0){
+            this.$notify({
+              title: '修改成功',
+              type: 'success'
+            });
+            this.centerDialogVisible=false
+            this.GetUserComment()
+          }else{
+            this.$notify.error({
+              title: '修改失败'
+            });
+          }
+        })
+      },
+      //删除购物车中的某个商品
+      DelBasket(item){
+        this.$confirm('将该商品从购物车中删除, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+            MyAjax('/api/deleteShoppingInfo','POST',{
+              id:item.id
+            }).then(res=>{
+              if(res.code==0){
+                this.GetUserComment()
+                this.$notify({
+                  title: '删除成功',
+                  type: 'success'
+                });
+              }else{
+                this.$notify.error({
+                  title: '删除失败',
+                });
+              }
+            })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+        });
+      },
+        //获取购物车列表
+        GetUserComment(){
+          let userinfo=JSON.parse(sessionStorage.getItem('userinfo'))
+          if(userinfo==null){ this.$notify({title: '未登录，请登录',type: 'warning'}); return}
+            console.log(userinfo)
+            MyAjax('/api/getShoppingByUserIdInfo','POST',{
+              user_id:userinfo.id
+            }).then(res=>{
+              this.total=0
+              if(res.code==0){
+                  for(let item of res.data){
+                    this.total=this.total+(item.number*item.goodsDtos.price)
+                  }
+                    this.goodlist=res.data
+              }else{
+                this.$notify.error({ title: '网络繁忙' });
+              }
+            })
+        }
+    }
+  })
+</script>
+
+</html>

@@ -31,7 +31,7 @@ public class HomeService {
      * @param pageNum
      * @return
      */
-    public R getLoadmMoreGoods(String category, int pageNum){
+    public R getLoadmMoreGoods(int category, int pageNum){
         //计算从第几条开始
         pageNum = (pageNum-1)*8;
 
@@ -42,13 +42,13 @@ public class HomeService {
         map.put("goodsNum",ls.get(1).get(0));
         return R.ok(map);
     }
-    /**
-     * 依靠类别搜索商品
-     */
-    public List getGoodsByCategory(String category){
-        List<GoodsDto> ls = goodsMapper.findGoodsByCategory(category);
-        return ls;
-    }
+//    /**
+//     * 依靠类别搜索商品
+//     */
+//    public List getGoodsByCategory(String category){
+//        List<GoodsDto> ls = goodsMapper.findGoodsByCategory(category);
+//        return ls;
+//    }
     /**
      * 获取商品类别
      */

@@ -28,7 +28,7 @@ public class HomeController {
      */
     @PostMapping("/getLoadmMoreGoodsInfo/{category}")
     @ApiOperation("商品加载更多")
-    public R getLoadmMoreGoodsInfo(@PathVariable("category") String category,
+    public R getLoadmMoreGoodsInfo(@PathVariable("category") int category,
                                    @RequestParam(defaultValue = "1",value = "pageNum") int pageNum){
 
         return homeService.getLoadmMoreGoods(category, pageNum);

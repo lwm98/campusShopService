@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>CIGT注册</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="/static/vendor/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="/static/vendor/font-awesome/css/font-awesome.min.css">
+    <!-- Google fonts - Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700">
+    <!-- owl carousel-->
+    <link rel="stylesheet" href="/static/vendor/owl.carousel/assets/owl.carousel.css">
+    <link rel="stylesheet" href="/static/vendor/owl.carousel/assets/owl.theme.default.css">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="/static/css/style.default.css" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="/static/css/custom.css">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="/static/favicon.png">
+    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+ <!-- 头部 -->
+ <link rel="import" href="/static/header.html" id="header">
+ <!-- 底部 -->
+ <link rel="import" href="/static/footer.html" id="footer">
+ 
+  </head>
+  <body>
+	  
+	 
+		  
+	  <script>document.write(header.import.body.innerHTML);</script>
+	  
+	 <div id="CIGTregister">
+    <div id="all">
+      <div id="content">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <!-- breadcrumb-->
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#">首页</a></li>
+                  <li aria-current="page" class="breadcrumb-item active">创建账号 / 登录</li>
+                </ol>
+              </nav>
+            </div>
+            <div class="col-lg-6">
+              <div class="box">
+                <h1>创建账号</h1>
+                <p class="lead">还不是我们的注册客户吗？</p>
+                <p>注册我们的新世界时尚，奇妙的折扣和更多的开放给你！整个过程不会超过一分钟！</p>
+                <p class="text-muted">如果您有任何问题， 请<a href="contact">联系我们</a>, 我们的客户服务中心为您提供全天候服务。</p>
+                <hr>
+                  <div class="form-group">
+                    <label for="name">账号</label>
+                    <input  type="text" v-model="register.name"
+					class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <label for="password">密码</label>
+                    <input  type="password" v-model="register.password"
+					class="form-control">
+                  </div>
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-primary" @click="Register"
+					><i class="fa fa-user-md"></i> 注册</button>
+                  </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="box">
+                <h1>登录</h1>
+                <p class="lead">已经是我们的客户了？</p>
+                <p class="text-muted">现今人群中有三分之二的人是我们的客户。生命之光，文化EGET，时间坐姿，安特。当我们永远爱你的时候，你的生命是长久的。</p>
+                <hr>
+                 <div class="form-group">
+                   <label for="name">账号</label>
+                   <input v-model="login.name" type="text" class="form-control">
+                 </div>
+                 <div class="form-group">
+                   <label for="password">密码</label>
+                   <input v-model="login.password" type="password" class="form-control">
+                 </div>
+                  <div class="text-center">
+                    <button type="submit" @click="Login"
+					class="btn btn-primary"><i class="fa fa-sign-in"></i> 登录</button>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+	
+	</div>
+    <!--
+    *** FOOTER ***
+    _________________________________________________________
+    -->
+   <script>
+   				  document.write(footer.import.body.innerHTML);
+   </script>
+   
+    <!-- *** COPYRIGHT END ***-->
+    <!-- JavaScript files-->
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/vendor/jquery.cookie/jquery.cookie.js"> </script>
+    <script src="/static/vendor/owl.carousel/owl.carousel.min.js"></script>
+    <script src="/static/vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.js"></script>
+    <script src="/static/js/front.js"></script>
+	
+	 <script type="text/javascript">
+		 var CIGTregister=new Vue({
+			 el:'#CIGTregister',
+			 data:{
+				 login:{
+					 name:null,
+					 password:null
+				 },
+				 register:{
+					 name:null,
+					 password:null
+				 }
+			 },
+			 methods:{
+				 Login(){
+					 let userinfo=JSON.parse(sessionStorage.getItem('userinfo'))
+					 if(userinfo!=null){
+						  this.$message({message: '您已登录，切换账号请先退出登录',type: 'warning'});
+						  return
+					 }
+					 var that=this
+					 MyAjax('/api/loginInfo','POST',{
+					 	name:that.login.name,
+					 	//password:that.login_password
+					 	password:hex_md5(that.login.password)
+					 }).then(res=>{
+					 	console.log(res)
+					 	if(res.login=='true'){
+					 		sessionStorage.setItem('userinfo',JSON.stringify(that.login))
+					 		that.$notify({title: '登录成功',type: 'success'})
+							setTimeout(()=>{
+								window.location.href='register'
+							},1000)
+					 	}else{
+					 		that.$notify.error({title: '账号或密码错误'})
+					 	}
+					 })
+				 },
+				 Register(){
+					 var that=this
+					  //检测账号是否已存在
+					  MyAjax('/api/registerAsynchronousInfo','POST',{
+							  user_name:that.register.name
+					  }).then(res=>{
+						if(res.registerAsynchronous=='true'){
+							//注册
+							MyAjax('/api/registerInfo','POST',{
+								name:that.register.name,
+								//password:that.register_password
+								password:hex_md5(that.register.password)
+							}).then(res=>{
+								if(res.register=='true'){
+									that.$notify({title: '注册成功',type: 'success'});
+								}else{
+									that.$notify.error({title: '注册失败'});
+								}
+							})
+						}else{
+							that.$notify({title: '已有该账号，请登录',type: 'warning'});
+						}
+					})
+				 }
+			 }
+		 })
+	 </script>
+  </body>
+</html>
