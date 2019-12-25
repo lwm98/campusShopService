@@ -223,7 +223,10 @@
 
             dialogFormVisible:false,       //发表商品显示框参数
             banner:[],          //轮播图参数
-            setgood:{},             //发表商品参数
+            setgood:{
+                name:null,price:null,depict:null,
+                num:null,category:null,images:null,
+            },             //发表商品参数
             mygoodlist:null         //商品列表
         },
         created(){
@@ -262,17 +265,36 @@
                 this.dialogVisible = true;
             },
             //发表商品
-            SetGood(){
+           async SetGood(){
                 for(let item in this.setgood){
-                    console.log(item)
+                    if(this.setgood[item]==null||this.setgood[item]==undefined||this.setgood[item]=='')
+                    {
+                        this.$message({
+                            message: item+'值不能为空',
+                            type: 'warning'
+                        });
+                        return
+                    }
                 }
-                return
                 this.setgood.time=new Date().toLocaleString()
-                this.setgood.banner_image1=this.setgood.banner[0]
-                this.setgood.banner_image2=this.setgood.banner[1]
-                this.setgood.banner_image3=this.setgood.banner[2]
-              console.log(this.setgood)
-
+                for(let i=0;i<this.banner.length;i++){
+                    this.setgood['banner_image'+(i+1)]=this.banner[i]
+                }
+                this.setgood.userId=userinfo.id
+                await MyAjax('/api/publishedGoods','POST',this.setgood)
+                    .then(res=>{
+                        if(res.code==0){
+                            this.$notify({
+                                title: '发表成功',
+                                type: 'success'
+                            });
+                        }else{
+                            this.$notify.error({
+                                title: '发表失败',
+                            });
+                        }
+                    })
+               this.dialogFormVisible=false
             },
             //切换商品上下架
             ChangeMyGoodStatus(item){

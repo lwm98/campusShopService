@@ -40,9 +40,9 @@ public interface GoodsMapper {
      * 发布商品
      **/
     @Insert("insert into t_goods (name,depict,price,images,time," +
-            "user_id,num,category" +
+            "user_id,num,category,banner_image1,banner_image2,banner_image3" +
             ") VALUES (#{name},#{depict},#{price},#{images},#{time}," +
-            "#{user_id},#{num},#{category})")
+            "#{user_id},#{num},#{category},#{banner_image1},#{banner_image2},#{banner_image3})")
     @Options(useGeneratedKeys = true, keyProperty = "id",keyColumn="id")
     int insertGoods(GoodsDto goodsDto);
 
