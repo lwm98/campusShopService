@@ -3,6 +3,7 @@ package com.cigt.service;
 import com.cigt.base.R;
 import com.cigt.dto.GoodsDto;
 import com.cigt.dto.ShoppingDto;
+import com.cigt.dto.UserDto;
 import com.cigt.mapper.ShoppingMapper;
 import com.cigt.my_util.GetTime_util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +43,8 @@ public class ShoppingService {
         ShoppingDto shoppingDto = new ShoppingDto();
         shoppingDto.setCreated_at(getTime_util.GetNowTime_util());
         shoppingDto.setUpdated_at(getTime_util.GetNowTime_util());
-        //UserDto userDto = (UserDto)httpServletRequest.getSession().getAttribute("USER");
-        shoppingDto.setUser_id(11);
+        UserDto userDto = (UserDto)httpServletRequest.getSession().getAttribute("USER");
+        shoppingDto.setUser_id(userDto.getId());
         shoppingDto.setGoods_id(goods_id);
         shoppingDto.setNumber(number);
         shoppingDto.setUser_address(user_address);
