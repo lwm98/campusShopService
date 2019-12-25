@@ -43,13 +43,10 @@ public class ShoppingService {
         ShoppingDto shoppingDto = new ShoppingDto();
         shoppingDto.setCreated_at(getTime_util.GetNowTime_util());
         shoppingDto.setUpdated_at(getTime_util.GetNowTime_util());
-<<<<<<< HEAD
-        UserDto userDto = (UserDto)httpServletRequest.getSession().getAttribute("USER");
-        shoppingDto.setUser_id(userDto.getId());
-=======
+      //  UserDto userDto = (UserDto)httpServletRequest.getSession().getAttribute("USER");
+      //  shoppingDto.setUser_id(userDto.getId());
         //UserDto userDto = (UserDto)httpServletRequest.getSession().getAttribute("USER");
         shoppingDto.setUser_id(userId);
->>>>>>> 7073dd488e86edbc8c5cf1fef80a98f105449ee2
         shoppingDto.setGoods_id(goods_id);
         shoppingDto.setNumber(number);
         shoppingDto.setUser_address(user_address);
@@ -95,9 +92,13 @@ public class ShoppingService {
      * 查看订单事务
      */
     public R allOrderByUserId(int user_id){
-        List<ShoppingDto> shoppingDto = shoppingMapper.allOrderByUserId(user_id);
-        if(shoppingDto != null){
-            return R.ok(shoppingDto);
+        List<ShoppingDto> shoppingDtos = shoppingMapper.allOrderByUserId(user_id);
+        if(shoppingDtos != null){
+            for(ShoppingDto shoppingDto:shoppingDtos) {
+                GoodsDto goodsDtos = shoppingMapper.goodsById(shoppingDto.getGoods_id());
+                shoppingDto.setGoodsDtos(goodsDtos);
+            }
+            return R.ok(shoppingDtos);
         }
         return R.error("订单为空");
     }

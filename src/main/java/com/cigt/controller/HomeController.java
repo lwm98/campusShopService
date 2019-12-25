@@ -41,8 +41,8 @@ public class HomeController {
     public Map getGoodsByCategoryInfo(@PathVariable("category") String category){
         Map map =new HashMap();
         try {
-            List ls = homeService.getGoodsByCategory(category);
-            map.put("getCategory",ls);
+            //List ls = homeService.getGoodsByCategory(category);
+           // map.put("getCategory",ls);
             return map;
         }catch (Exception e){
             System.out.println(e);
