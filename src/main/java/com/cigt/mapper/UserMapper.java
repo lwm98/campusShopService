@@ -28,7 +28,7 @@ public interface UserMapper {
     /**
      * 修改个人信息
      */
-    @Update("update t_user set address = #{address},sex = #{sex}," +
+    @Update("update t_user set image=#{image},address = #{address},sex = #{sex}," +
             "phone = #{phone},Information_state=#{Information_state}," +
             "autograph=#{autograph},updated_at=#{updated_at}," +
             "real_name=#{real_name}" +
