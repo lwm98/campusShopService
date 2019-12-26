@@ -27,8 +27,8 @@ public class CommentController {
      */
     @PostMapping("/getCommentInfo")
     @ApiOperation("获取商品评论")
-    public R getCommentInfo(int goods_id){
-        return commentService.getComment(goods_id);
+    public R getCommentInfo(int news_id){
+        return commentService.getComment(news_id);
     }
 
     /**
@@ -36,11 +36,11 @@ public class CommentController {
      */
     @PostMapping("/sendCommentInfo")
     @ApiOperation("发表评论")
-    public R sendCommentInfo(int goods_id,
+    public R sendCommentInfo(int news_id,
                              String content,
                              @RequestParam(required = false,defaultValue = "0") int pid,
                              @RequestParam(required = false,defaultValue = "0") int reply_id,
                              int userId){
-        return commentService.sendComment(goods_id,content,reply_id,pid,userId);
+        return commentService.sendComment(news_id,content,reply_id,pid,userId);
     }
 }

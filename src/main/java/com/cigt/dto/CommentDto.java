@@ -1,5 +1,7 @@
 package com.cigt.dto;
 
+
+
 import lombok.Data;
 
 import java.util.List;
@@ -12,7 +14,7 @@ public class CommentDto {
     private String real_name;
     private String sex;
     private String image;
-    private int goods_id;
+    private int news_id ;
     private int user_id;
     private String content;
     private String create_time;

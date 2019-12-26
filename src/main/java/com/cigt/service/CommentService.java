@@ -28,15 +28,15 @@ public class CommentService {
     /**
      * 处理某个商品的评论
      */
-    public R getComment(int goods_id){
+    public R getComment(int news_id){
         try {
-            List<CommentDto> commentDtos = commentMapper.findCommentById(goods_id);
+            List<CommentDto> commentDtos = commentMapper.findCommentById(news_id);
             if(commentDtos==null){
                 return R.ok("没有评论");
             }
             //遍历获取子评论及其内容
             for(CommentDto commentDto:commentDtos){
-                List<CommentExt> commentExts = commentMapper.getCommentSons(commentDto.getId(),goods_id);
+                List<CommentExt> commentExts = commentMapper.getCommentSons(commentDto.getId(),news_id);
                 commentDto.setCommentExts(commentExts);
             }
             return R.ok(commentDtos);
@@ -47,11 +47,11 @@ public class CommentService {
     /**
      * 用户评论
      */
-    public R sendComment(int goods_id, String content, int reply_id, int pid, int userId){
+    public R sendComment(int news_id, String content, int reply_id, int pid, int userId){
         CommentDto commentDto =new CommentDto();
         //System.out.println(session.getAttribute("USER"));
        // UserDto userDto = (UserDto)session.getAttribute("USER");
-        commentDto.setGoods_id(goods_id);
+        commentDto.setNews_id(news_id);
         commentDto.setUser_id(userId);
         commentDto.setContent(content);
         commentDto.setCreate_time(getTime_util.GetNowTime_util());
