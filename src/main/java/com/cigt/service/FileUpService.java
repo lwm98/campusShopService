@@ -20,7 +20,7 @@ import java.io.IOException;
 @Transactional
 public class FileUpService {
 
-    private static final String IMAGE_PATH="images";
+    private static final String IMAGE_PATH="CIGTimages";
 
     @Autowired
     private FileUtils fileUtils;
