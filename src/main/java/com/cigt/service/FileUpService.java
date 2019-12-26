@@ -20,7 +20,7 @@ import java.io.IOException;
 @Transactional
 public class FileUpService {
 
-    private static final String IMAGE_PATH="CIGTimages";
+    private static final String IMAGE_PATH="images";
 
     @Autowired
     private FileUtils fileUtils;
@@ -63,7 +63,7 @@ public class FileUpService {
             //保存文件
             file.transferTo(dest);
             //返回文件名
-            return R.ok("/"+IMAGE_PATH+"/"+imagePath+"/"+newName);
+            return R.ok("/static/CIGTimages/"+imagePath+"/"+newName);
         } catch (IllegalStateException e) {
             // TODO Auto-generated catch block
             log.error("环境问题"+e);
