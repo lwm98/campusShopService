@@ -26,7 +26,7 @@ public class CommentController {
      * 获取评论
      */
     @PostMapping("/getCommentInfo")
-    @ApiOperation("获取商品评论")
+    @ApiOperation("获取商铺评论")
     public R getCommentInfo(int news_id){
         return commentService.getComment(news_id);
     }
