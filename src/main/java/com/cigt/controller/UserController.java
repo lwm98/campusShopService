@@ -1,5 +1,6 @@
 package com.cigt.controller;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.cigt.base.R;
 import com.cigt.dto.GoodsDto;
 import com.cigt.dto.UserDto;
@@ -38,6 +39,7 @@ public class UserController {
     @PostMapping("/loginInfo")
     @ApiOperation("用户登录")
     public Map loginInfo(UserDto userDto,HttpSession session){
+        System.out.println("x");
         Map map =new HashMap();
         userDto = userService.userLogin(userDto);
         if(userDto!=null){
