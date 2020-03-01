@@ -1,6 +1,7 @@
 package com.cigt.mapper;
 
 import com.cigt.dto.UserDto;
+import org.apache.catalina.User;
 import org.apache.ibatis.annotations.*;
 
 /**
@@ -47,4 +48,9 @@ public interface UserMapper {
     @Update("update t_user set image =#{imagePath} where id = #{id}")
     int updateUserImage(@Param("imagePath") String imagePath,
                         @Param("id") int user_id);
+    /**
+     * 获取新闻的用户部分信息
+     */
+    @Select("select name,image,sex,real_name from t_user where id = #{id}")
+    UserDto getNewsUser(@Param("id")int id);
 }

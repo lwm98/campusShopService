@@ -1,6 +1,7 @@
 package com.cigt.mapper;
 
 import com.cigt.dto.AreaDto;
+import com.cigt.dto.Area_nDto;
 import com.cigt.dto.NewsDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -29,4 +30,10 @@ public interface AreaMapper {
      */
     @Select("select * from t_area")
     List<AreaDto> getArea();
+
+    /**
+     * 查询改地区的二级商区
+     */
+    @Select("select * from t_area_f where pid = #{id}")
+    List<Area_nDto> getArean(@Param("id") int id);
 }

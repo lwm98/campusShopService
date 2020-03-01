@@ -2,12 +2,14 @@ package com.cigt.dto;
 
 import lombok.Data;
 
+/**
+ * 商铺
+ */
 @Data
 public class StoreDto {
     private int id;
     private int pid;
     private int area_id;
-
     private String name;
     private String date;
     private String desc;

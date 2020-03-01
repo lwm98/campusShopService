@@ -2,6 +2,9 @@ package com.cigt.dto;
 
 import lombok.Data;
 
+/**
+ *  一级商区
+ */
 @Data
 public class AreaDto {
     private int id;

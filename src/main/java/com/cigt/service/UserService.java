@@ -131,4 +131,12 @@ public class UserService {
             return R.error("删除自己的商品失败");
         }
     }
+
+    /**
+     * 获取新闻详情的用户信息
+     */
+    public R getNewsUser(int id){
+        UserDto userDto = userMapper.getNewsUser(id);
+        return R.ok(userDto);
+    }
 }

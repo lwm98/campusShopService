@@ -193,4 +193,11 @@ public class UserController {
         return userService.delUserGoods(goodsId);
     }
 
+    /**
+     * 获取新闻的用户信息
+     */
+    @GetMapping("/getNewsUser")
+    public R getNewsUser(int id){
+        return userService.getNewsUser(id);
+    }
 }

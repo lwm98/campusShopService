@@ -24,4 +24,9 @@ public class AreaController {
         return areaService.getArea();
     }
 
+    @GetMapping("/getArean")
+    @ResponseBody
+    public R getArean(int id){
+        return areaService.getArean(id);
+    }
 }
