@@ -9,4 +9,5 @@ public class AreaDto {
     private int clicks;
     private String img;
     private String describe;
+    private String index;
 }

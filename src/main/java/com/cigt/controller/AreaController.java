@@ -4,10 +4,7 @@ import com.cigt.base.R;
 import com.cigt.service.AreaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/api")
@@ -20,5 +17,11 @@ public class AreaController {
     @PostMapping("/clicksAddInfo")
     @ResponseBody
     public R clicksAdd(int id) { return  areaService.clicksAdd(id); }
+
+    @GetMapping("/getAreaInfo")
+    @ResponseBody
+    public R getArea(){
+        return areaService.getArea();
+    }
 
 }

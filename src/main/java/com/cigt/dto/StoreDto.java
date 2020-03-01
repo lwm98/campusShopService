@@ -5,6 +5,9 @@ import lombok.Data;
 @Data
 public class StoreDto {
     private int id;
+    private int pid;
+    private int area_id;
+
     private String name;
     private String date;
     private String desc;

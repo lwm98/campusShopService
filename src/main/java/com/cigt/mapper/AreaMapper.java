@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.List;
+
 @Mapper
 public interface AreaMapper {
 
@@ -21,4 +23,10 @@ public interface AreaMapper {
      */
     @Select("select * from t_news where id = #{id}")
     NewsDto findNewById(@Param("id")int id);
+
+    /**
+     * 查询所有地区信息
+     */
+    @Select("select * from t_area")
+    List<AreaDto> getArea();
 }
