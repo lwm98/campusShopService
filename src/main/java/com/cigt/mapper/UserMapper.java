@@ -17,8 +17,8 @@ public interface UserMapper {
     /**
      * 注册
      */
-    @Insert("INSERT INTO t_user (name,password,created_at,updated_at) " +
-            "VALUES (#{name},#{password},#{created_at},#{updated_at})")
+    @Insert("INSERT INTO t_user (name,password,role,created_at,updated_at) " +
+            "VALUES (#{name},#{password},#{role},#{created_at},#{updated_at})")
     @Options(useGeneratedKeys = true, keyProperty = "id",keyColumn="id")
     int insertUser(UserDto userDto);
     /**

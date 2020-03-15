@@ -37,4 +37,12 @@ public class NewsController {
         return newsService.getNewsList(store_id);
     }
 
+    /**
+     * 获取所有新闻
+     * @return
+     */
+//    @GetMapping("/getAllNews")
+//    public R getAllNews(){
+//        return newsService.getAllNews();
+//    }
 }

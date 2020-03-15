@@ -83,6 +83,7 @@ public class UserController {
     @ApiOperation("用户退出")
     public R UserLoginOut(HttpServletRequest request){
         //保存到session中
+        System.out.println(request.getHeader("Authorization"));
         HttpSession sessoin=request.getSession();
         sessoin.setAttribute("USER",null);
         return R.ok();

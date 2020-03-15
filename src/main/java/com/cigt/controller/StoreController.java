@@ -5,10 +5,7 @@ import com.cigt.base.R;
 import com.cigt.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/api")
@@ -17,7 +14,19 @@ public class StoreController {
     @Autowired
     private StoreService storeService;
 
-    @PostMapping("/getAllStoreInfo")
+    @GetMapping("/getAllStoreInfo")
     @ResponseBody
-    public R getAllStore(int id){ return  storeService.getAllStore(id); }
+    public R getAllStore(){ return  storeService.getAllStore(); }
+
+    @GetMapping("/getStoreByArea")
+    @ResponseBody
+    public R getStoreByArea(int id){
+        return storeService.getStoreByArea(id);
+    }
+
+    @GetMapping("/getStoreByid")
+    @ResponseBody
+    public R getStoreByid(int id){
+        return storeService.getStoreByid(id);
+    }
 }

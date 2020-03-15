@@ -51,6 +51,7 @@ public class UserService {
         //修改时间
         userDto.setCreated_at(getTime_util.GetNowTime_util());
         userDto.setUpdated_at(getTime_util.GetNowTime_util());
+        userDto.setRole("user");
         userMapper.insertUser(userDto);
         return userDto;
     }

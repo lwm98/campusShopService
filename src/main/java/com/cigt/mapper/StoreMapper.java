@@ -14,6 +14,18 @@ public interface StoreMapper {
     /**
      * 查询所有商铺信息
      */
-    @Select("select * from t_store where id= #{id}")
-    List<StoreDto> getAllStore(@Param("id") int id);
+    @Select("select * from t_store")
+    List<StoreDto> getAllStore();
+
+    /**
+     *  查询商区内所有商铺
+     */
+    @Select("select * from t_store where area_id=#{id}")
+    List<StoreDto> getStoreByArea(@Param("id")int id);
+
+    /**
+     *  查询单一商铺信息
+     */
+    @Select("select * from t_store where id=#{id}")
+    List<StoreDto> getStoreByid(@Param("id")int id);
 }

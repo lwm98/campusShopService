@@ -14,8 +14,8 @@ public class StoreService {
     @Autowired
     private StoreMapper storeMapper;
 
-    public R getAllStore(int id){
-        List<StoreDto> storeDtos = storeMapper.getAllStore(id);
+    public R getAllStore(){
+        List<StoreDto> storeDtos = storeMapper.getAllStore();
         if(storeDtos != null){
             return R.ok(storeDtos);
         }
@@ -24,4 +24,21 @@ public class StoreService {
         }
     }
 
+    public R getStoreByArea(int id){
+        List<StoreDto> storeDtos = storeMapper.getStoreByArea(id);
+        if (storeDtos != null){
+            return R.ok(storeDtos);
+        }else {
+            return R.error("该地区暂无商铺");
+        }
+    }
+
+    public R getStoreByid(int id){
+        List<StoreDto> storeDtos = storeMapper.getStoreByid(id);
+        if (storeDtos != null){
+            return R.ok(storeDtos);
+        }else {
+            return R.error("暂无信息");
+        }
+    }
 }
