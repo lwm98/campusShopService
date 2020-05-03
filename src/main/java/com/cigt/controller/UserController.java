@@ -194,6 +194,14 @@ public class UserController {
         return userService.delUserGoods(goodsId);
     }
 
+    @GetMapping("/getAllUserList")
+    @ApiOperation("获取所有用户")
+    public R getAllUserList(){
+        return userService.getAllUserList();
+    }
+
+
+
     /**
      * 获取新闻的用户信息
      */

@@ -41,4 +41,10 @@ public class StoreService {
             return R.error("暂无信息");
         }
     }
+
+
+    public R getAllStoreList(){
+        List<StoreDto> storeDtos = storeMapper.getAllStoreList();
+        return R.ok(storeDtos);
+    }
 }

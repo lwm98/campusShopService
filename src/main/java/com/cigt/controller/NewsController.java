@@ -41,8 +41,8 @@ public class NewsController {
      * 获取所有新闻
      * @return
      */
-//    @GetMapping("/getAllNews")
-//    public R getAllNews(){
-//        return newsService.getAllNews();
-//    }
+    @GetMapping("/getAllNewsList")
+    public R getAllNewsList(){
+        return newsService.getAllNewsList();
+    }
 }

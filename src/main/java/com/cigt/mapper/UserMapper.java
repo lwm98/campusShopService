@@ -4,6 +4,8 @@ import com.cigt.dto.UserDto;
 import org.apache.catalina.User;
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
+
 /**
  * 操作t_user表
  */
@@ -53,4 +55,11 @@ public interface UserMapper {
      */
     @Select("select name,image,sex,real_name from t_user where id = #{id}")
     UserDto getNewsUser(@Param("id")int id);
+
+
+    /**
+     * 获取所有用户
+     */
+    @Select("select * from t_user")
+   List<UserDto> getAllUserList();
 }

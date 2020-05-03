@@ -6,6 +6,7 @@ import lombok.Data;
 public class NewsDto {
     private int id;
     private int userId;
+    private int store_id;
     private String title;
     private String desc;
     private String img;

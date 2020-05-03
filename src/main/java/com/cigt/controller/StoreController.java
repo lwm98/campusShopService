@@ -29,4 +29,10 @@ public class StoreController {
     public R getStoreByid(int id){
         return storeService.getStoreByid(id);
     }
+
+    @GetMapping("/getAllStoreList")
+    @ResponseBody
+    public  R getAllStoreList(){
+        return storeService.getAllStoreList();
+    }
 }

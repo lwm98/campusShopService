@@ -7,6 +7,7 @@ import com.cigt.dto.UserDto;
 import com.cigt.mapper.GoodsMapper;
 import com.cigt.mapper.UserMapper;
 import com.cigt.my_util.GetTime_util;
+import com.sun.org.apache.regexp.internal.REUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -139,5 +140,14 @@ public class UserService {
     public R getNewsUser(int id){
         UserDto userDto = userMapper.getNewsUser(id);
         return R.ok(userDto);
+    }
+
+
+    /**
+     * 获取所有用户列表
+     */
+    public R getAllUserList(){
+       List<UserDto>  userDto = userMapper.getAllUserList();
+        return  R.ok(userDto);
     }
 }

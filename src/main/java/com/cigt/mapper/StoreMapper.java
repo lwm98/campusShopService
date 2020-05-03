@@ -28,4 +28,10 @@ public interface StoreMapper {
      */
     @Select("select * from t_store where id=#{id}")
     List<StoreDto> getStoreByid(@Param("id")int id);
+
+    /**
+     * 查询所有商铺列表
+     */
+    @Select("select * from t_store")
+    List<StoreDto> getAllStoreList();
 }

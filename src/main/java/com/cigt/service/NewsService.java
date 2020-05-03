@@ -22,4 +22,10 @@ public class NewsService {
         List<NewsDto> newsDto = newsMapper.getNewsList(store_id);
         return R.ok(newsDto);
     }
+
+
+    public R getAllNewsList(){
+        List<NewsDto> newsDtos = newsMapper.getAllNewsList();
+        return R.ok(newsDtos);
+    }
 }

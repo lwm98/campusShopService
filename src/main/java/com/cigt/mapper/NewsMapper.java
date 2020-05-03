@@ -14,4 +14,8 @@ public interface NewsMapper {
 
     @Select("select * from t_news where store_id = #{store_id}")
     List<NewsDto> getNewsList(@Param("store_id")int store_id);
+
+
+    @Select("select * from t_news")
+    List<NewsDto> getAllNewsList();
 }
