@@ -200,7 +200,10 @@ public class UserController {
         return userService.getAllUserList();
     }
 
-
+    @PostMapping("/delUserById")
+    public R delUserById(int id){
+        return userService.delUserById(id);
+    }
 
     /**
      * 获取新闻的用户信息

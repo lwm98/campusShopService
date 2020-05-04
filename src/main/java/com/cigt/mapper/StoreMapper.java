@@ -18,9 +18,9 @@ public interface StoreMapper {
     List<StoreDto> getAllStore();
 
     /**
-     *  查询商区内所有商铺
+     *  查询商区内已租赁所有商铺
      */
-    @Select("select * from t_store where area_id=#{id}")
+    @Select("select * from t_store where area_id=#{id} and status = 1")
     List<StoreDto> getStoreByArea(@Param("id")int id);
 
     /**
@@ -34,4 +34,16 @@ public interface StoreMapper {
      */
     @Select("select * from t_store")
     List<StoreDto> getAllStoreList();
+
+    /**
+     * 查询所有未租赁的商铺
+     */
+    @Select("select * from t_store where status = 1")
+    List<StoreDto> getAllzlStore();
+    /**
+     * 查询所有未租赁的商铺
+     */
+    @Select("select * from t_store where status = 0")
+    List<StoreDto> getAllwzlStore();
+
 }

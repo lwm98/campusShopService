@@ -18,7 +18,7 @@ public class StoreDto {
     private String address;
     private String serviceTime;
     private String notice;
-    private  int comments;
+    private int comments;
     private String banner1;
     private String banner2;
     private String banner3;
@@ -30,5 +30,6 @@ public class StoreDto {
     private String voucher1;
     private String voucher2;
     private String voucher3;
-
+    private int status;
+    private String showImg;
 }

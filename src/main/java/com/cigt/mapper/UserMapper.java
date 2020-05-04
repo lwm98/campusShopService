@@ -62,4 +62,7 @@ public interface UserMapper {
      */
     @Select("select * from t_user")
    List<UserDto> getAllUserList();
+
+    @Delete("DELETE FROM t_user WHERE id = #{id}")
+   int delUserById(@Param("id")int id);
 }

@@ -150,4 +150,11 @@ public class UserService {
        List<UserDto>  userDto = userMapper.getAllUserList();
         return  R.ok(userDto);
     }
+
+
+
+    public R delUserById(int id){
+        userMapper.delUserById(id);
+        return  R.ok();
+    }
 }

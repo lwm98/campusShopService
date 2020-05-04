@@ -35,4 +35,16 @@ public class StoreController {
     public  R getAllStoreList(){
         return storeService.getAllStoreList();
     }
+
+    @GetMapping("/getAllzlStore")
+    @ResponseBody
+    public  R getAllzlStore(){
+        return storeService.getAllzlStore();
+    }
+
+    @GetMapping("/getAllwzlStore")
+    @ResponseBody
+    public  R getAllwzlStore(){
+        return storeService.getAllwzlStore();
+    }
 }

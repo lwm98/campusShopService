@@ -47,4 +47,15 @@ public class StoreService {
         List<StoreDto> storeDtos = storeMapper.getAllStoreList();
         return R.ok(storeDtos);
     }
+
+
+    public R getAllzlStore(){
+        List<StoreDto> storeDtos = storeMapper.getAllzlStore();
+        return R.ok(storeDtos);
+    }
+    public R getAllwzlStore(){
+        List<StoreDto> storeDtos = storeMapper.getAllwzlStore();
+        return R.ok(storeDtos);
+    }
+
 }

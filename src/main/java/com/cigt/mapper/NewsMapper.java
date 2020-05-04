@@ -16,6 +16,7 @@ public interface NewsMapper {
     List<NewsDto> getNewsList(@Param("store_id")int store_id);
 
 
-    @Select("select * from t_news")
+    @Select("SELECT * from t_news t\n" +
+            "join t_user tu on t.userId = tu.id join t_store on t_store.id = t.store_id")
     List<NewsDto> getAllNewsList();
 }
